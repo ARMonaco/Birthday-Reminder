@@ -1,0 +1,58 @@
+<!-- Alexander Monaco & Shreyas Mehta
+CS 4640
+-->
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <!-- 2. include meta tag to ensure proper rendering and touch zooming
+         (bootstrap is designed to be responsive to mobile.
+         Mobile-first styles are part of the core framework.)
+   -->  
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- the width=device-width part sets the width of the page to follow
+          the screen-width of the device (which wil vary depending on the device)
+       the initial-scale=1 part sets the initialize zoom level when the page 
+          is first loaded by the browser. 
+   --> 
+  
+  <!-- The above 2 meta tags *must* come first in the head; any other head content must come *after* these tags -->   
+  <title>Birthday Reminder Profile</title>    
+  
+  <!-- 3. link bootstrap pages
+          Two basic bootstrap pages are  
+             https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css
+             https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js
+          To use bootstrap.min.js, need jquery
+             https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js
+          (if only use css bootstrap, only link to the css)
+   -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" /> 
+  <style>
+	.error{color: red; font-style: italic; padding: 10px;}
+	.nav-link {
+		color: white;
+	}
+  </style>
+</head>
+
+<body>
+	<header>
+	<div class = "container">
+		<nav class="navbar navbar-dark bg-dark">
+			<a class="navbar-brand" href="#">Birthday Reminder</a>
+			<ul class="nav">
+				<li class="nav-item">
+					<a class="nav-link" href="#">Home</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">Profile</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">Log Out</a>
+				</li>
+			</ul>
+		</nav>
+	</class>
+	</header>
