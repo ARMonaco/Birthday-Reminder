@@ -1,3 +1,4 @@
+<!-- Used Bootstrap and Google api documentation as sources -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -24,19 +25,21 @@
                 text-align: center;
             }
             .p{
-                text-align: center;
+                text-align: left;
             }
             .btn-success{
                 align-content: center;
             }
+            .g-signin2 > div{
+              margin: auto;
+            }
         </style>
-        <header>
             <div class = "container2">
                 <div class = "jumbotron">
                     <div class= "text-center">
                         <h1 class="display-2">Welcome to Birthday Reminder</h1>
                             <hr/>
-                        <button type="button" class="btn btn-outline-info btn-lg">About Us</button>
+                        <button type="button" class="btn btn-outline-info btn-lg" onclick="document.location='aboutus.html'">About Us</button>
             		</div>
                 </div>
            </div>
@@ -48,58 +51,76 @@
                    <div class="input-group-prepend">
                        <span class="input-group-text">Username</span>
                    </div>
-                   <input type="text" class="form-control" id="signinuser">
+                   <input type="text" class="form-control" id="signinuser" oninput="signInBtnDis()">
                </div>
                <br>
                <div class="input-group input-group-lg">
                    <div class="input-group-prepend">
                        <span class="input-group-text">Password</span>
                    </div>
-                   <input type="text" class="form-control" id="signinpass">
+                   <input type="text" class="form-control" id="signinpass" oninput="signInBtnDis()">
                </div>
                <br>
-               <button type="button" class="btn btn-block btn-outline-success" id="signinbtn">Sign In</button>
+               <button type="button" class="btn btn-block btn-outline-success" id="signinbtn" disabled=true>Sign In</button>
                <br>
                <h4 class="display-6">Or</h4>
                <br>
-               <!-- Found code info online via google api -->
                <div class="g-signin2" data-onsuccess="onSignIn" data-width="400" data-height="60" data-longtitle="true"></div>
                <br>
                <h4 class="display-4">Create New Account</h4>
                <br>
                <div class="input-group input-group-lg">
                    <div class="input-group-prepend">
-                       <span class="input-group-text">Full Name</span>
+                       <span class="input-group-text">Username</span>
                    </div>
-                   <input type="text" class="form-control">
+                   <input type="text" class="form-control" id="createuser" oninput="createBtnDis()">
                </div>
                <br>
                <div class="input-group input-group-lg">
                    <div class="input-group-prepend">
-                       <span class="input-group-text">Email</span>
+                       <span class="input-group-text" >Email</span>
                    </div>
-                   <input type="text" class="form-control">
+                   <input type="email" class="form-control" id="email" oninput="createBtnDis()">
                </div>
                <br>
                <div class="input-group input-group-lg">
                    <div class="input-group-prepend">
                        <span class="input-group-text">Password</span>
                    </div>
-                   <input type="text" class="form-control" id="createpass">
+                   <input type="password" class="form-control" id="createpass" oninput="createBtnDis()">
                </div>
-               <p class="font-italic" id="passrules">Must be at least 8 chars long and have at least one capital letter, one number, and one special character</p>
+               <p class="font-italic" id="passrules">Must be at least 8 chars long</p>
                <p class="text-danger" id="errorcreate"> </p>
-               <button type="button" class="btn btn-block btn-outline-primary" onclick="passValid()">Create Account</button>
+               <div class="input-group input-group-lg">
+                   <div class="input-group-prepend">
+                       <span class="input-group-text">Tel</span>
+                   </div>
+                   <input type="tel" class="form-control" id="createpass" placeholder="(optional)">
+               </div>
+               <br>
+               <button type="button" class="btn btn-block btn-outline-primary" onclick="passValid()" id="createBtn" disabled=true>Create Account</button>
         </div>
         <script>
             document.getElementById("signinuser").focus();
-            var user=document.getElementById("signinuser");
-            var pass=document.getElementById("signinpass");
-            // if(user.value!=""){
-            //     document.getElementById("signinbtn").disabled=false;
-            // }else{
-            //     document.getElementById("signinbtn").disabled=true;
-            // }
+            function signInBtnDis(){
+                user=document.getElementById("signinuser");
+                pass=document.getElementById("signinpass");
+                if(user.value!="" && pass.value!=""){
+                    document.getElementById("signinbtn").disabled=false;
+                }else{
+                    document.getElementById("signinbtn").disabled=true;
+                }
+            }
+            function createBtnDis(){
+                username=document.getElementById("createuser");
+                pass=document.getElementById("createpass");
+                email=document.getElementById("email");
+                if(username.value!="" && pass.value!="" && email.value!=""){
+                    document.getElementById("createBtn").disabled=false;
+                }else{
+                    document.getElementById("createBtn").disabled=true;
+                }
+            }
             function passValid() { //currently only validates length (might add regex for capital/nums/special chars)
                 pass=document.getElementById("createpass").value;
                 if(pass.length<8){
