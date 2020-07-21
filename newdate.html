@@ -1,7 +1,7 @@
 <!-- Alexander Monaco & Shreyas Mehta
 CS 4640
 -->
-
+<!-- Used Bootstrap documentation as source -->
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -11,6 +11,7 @@ CS 4640
   <title>New Birthday</title>
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" />
+
   <style>
 	.error{color: red; font-style: italic; padding: 5px;}
 	.nav-link {
@@ -57,6 +58,172 @@ CS 4640
 		</div>
 	</div>
 	<br>
+    <div class="container" id="searchName">
+        <div class="row justify-content-md-center">
+            <div class="col col-lg-2">
+        		<div class= "text-right"><p >Contact Name:</p></div>
+            </div>
+            <div class="col col-lg-4">
+              <input type="text" class="form-control" id="contactnamecheck">
+            </div>
+        	<div class="col col-lg-3">
+        		<button type="button" id="change_user" class="btn btn-block btn-primary btn-lg" onClick="checkName()">Check Contacts</button>
+        	</div>
+        </div>
+        <br><br>
+   </div>
+
+
+   <!-- CHANGING EXISTING BIRTHDAY (if name found in database) -->
+   <div class="container" id="namefound">
+       <div class="row justify-content-md-center">
+           <div class="col col-lg-2">
+               <div class= "text-left"><p >Current Date:</p></div>
+           </div>
+           <div class="col col-lg-4">
+               <div class= "text-left" id="currBday"><p ></p></div>
+           </div>
+           <div class="col col-lg-3">
+               <div class= "text-left" id="showprev"><p></p></div>
+           </div>
+       </div>
+       <br><br>
+       <div class="row justify-content-md-center">
+           <div class="col col-lg-2">
+               <div class= "text-left"><p>New Date:</p></div>
+           </div>
+           <div class="col col-lg-4">
+               <input type="date" class="form-control" id="newdate" placeholder="MMDDYYY" onkeydown="return inputlength(event)" onkeypress="dateHandler()">
+           </div>
+           <div class="col col-lg-3">
+               <button type="button" id="change_date" class="btn btn-block btn-primary btn-lg">Update Current Date</button>
+           </div>
+       </div>
+       <br><br>
+       <button type="button" id="change_date" class="btn btn-block btn-primary btn-lg">Done</button>
+  </div>
+
+  <!-- CREATE NEW CONTACT (contact not found) -->
+  <div class="container" id="creatingnew">
+      <div class="row justify-content-md-center">
+          <div class="col col-lg-2">
+              <div class= "text-left"><p>Name:</p></div>
+          </div>
+          <div class="col col-lg-4">
+            <input type="text" class="form-control" id="newcontactname">
+          </div>
+          <div class="col col-lg-3">
+          </div>
+      </div>
+      <br>
+      <div class="row justify-content-md-center">
+          <div class="col col-lg-2">
+              <div class= "text-left"><p>Birthday:</p></div>
+          </div>
+          <div class="col col-lg-4">
+              <input class="form-control" type="date" id="contactbday" placeholder="MMDDYYY" onkeydown="return inputlength(event)" onkeypress="dateHandler()">
+          </div>
+          <div class="col col-lg-3">
+              <!-- <button type="button" id="change_date" class="btn btn-block btn-primary btn-lg">Update Current Date</button> -->
+          </div>
+      </div>
+      <br>
+      <div class="row justify-content-md-center">
+          <div class="col col-lg-2">
+              <div class= "text-left"><p>Notification Settings:</p></div>
+          </div>
+          <div class="col col-lg-4">
+              <div class="form-check form-check-inline">
+                  <label class="form-check-label">
+                      <input class="form-check-input" type="checkbox" id="email"> Email
+                  </label>
+              </div>
+              <div class="form-check form-check-inline">
+                  <label class="form-check-label">
+                      <input class="form-check-input" type="checkbox" id="text"> Text
+                  </label>
+              </div>
+              <div class="form-check form-check-inline">
+                  <label class="form-check-label">
+                      <input class="form-check-input" type="checkbox" id="desktop"> Desktop Notification
+                  </label>
+              </div>
+           </div>
+          <div class="col col-lg-3">
+              <!-- <button type="button" id="change_date" class="btn btn-block btn-primary btn-lg">Update Current Date</button> -->
+          </div>
+      </div>
+      <br><br>
+      <button type="button" id="change_date" class="btn btn-block btn-primary btn-lg">Create New Contact</button>
+  </div>
+
+
+      <script>
+          document.getElementById("contactnamecheck").focus();
+          document.getElementById("namefound").style.display = 'none';
+          document.getElementById("creatingnew").style.display = 'none';
+          function checkName(){
+              name1=document.getElementById("contactnamecheck").value;
+              if(name1=="Shreyas"){
+                  document.getElementById("namefound").style.display='';
+                  document.getElementById("creatingnew").style.display = 'none';
+                  document.getElementById("currBday").innerHTML="10/03/1999";
+              }else{
+                  document.getElementById("creatingnew").style.display = '';
+                  document.getElementById("namefound").style.display = 'none';
+                  document.getElementById("newcontactname").value=name1;
+                  document.getElementById("newcontactname").focus();
+              }
+          }
+          //Adds '/' in appropriate places in date inputs
+          function dateHandler(){
+              if(document.getElementById("creatingnew").style.display =='none'){
+                  date=document.getElementById("newdate").value;
+                  if(date.length==2 || date.length==5){
+                      document.getElementById("newdate").value+="/"
+                  }
+              } else{
+                  date=document.getElementById("contactbday").value;
+                  if(date.length==2 || date.length==5){
+                      document.getElementById("contactbday").value+="/"
+                  }
+              }
+          }
+          //Stops user from entering too long date or '/' char in date inputs
+          function inputlength(event){
+              var charCode = event.keyCode;
+              if(document.getElementById("creatingnew").style.display =='none'){
+                  date=document.getElementById("newdate").value;
+                  if((date.length==10 && charCode!=8) || charCode==191){
+                      return false;
+                  }else{
+                      return true;
+                  }
+              }else{
+                  date=document.getElementById("contactbday").value;
+                  if((date.length==10 && charCode!=8) || charCode==191){
+                      return false;
+                  }else{
+                      return true;
+                  }
+              }
+          }
+          //Button listener for modifying existing bday
+         document.getElementById("change_date").addEventListener('click', function() {
+             document.getElementById("showprev").innerHTML="Previous Date: "+ document.getElementById("currBday").innerHTML;
+             document.getElementById("currBday").innerHTML=document.getElementById("newdate").value;
+             //modify bday in database
+             //link to address page
+         });
+         //Button listener for creating new bday
+         document.getElementById("change_date").addEventListener('click', function() {
+
+             //add contact to database
+             //link to address page
+         });
+     </script>
+
+
 
 </body>
 </html>
