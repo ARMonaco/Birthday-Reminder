@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">  <!-- required to handle IE -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+        <meta name="google-signin-client_id" content="http://localhost.apps.googleusercontent.com">
+        <title>Sign In</title>
+    </head>
+    <body>
+        <style>
+            .container{
+                padding-bottom: 100px;
+            }
+            .container2{
+                padding-bottom: 30px;
+            }
+            .display-4{
+                text-align: center;
+            }
+            .display-6{
+                text-align: center;
+            }
+            .p{
+                text-align: center;
+            }
+            .btn-success{
+                align-content: center;
+            }
+        </style>
+        <header>
+            <div class = "container2">
+                <div class = "jumbotron">
+                    <div class= "text-center">
+                        <h1 class="display-2">Welcome to Birthday Reminder</h1>
+                            <hr/>
+                        <button type="button" class="btn btn-outline-info btn-lg">About Us</button>
+            		</div>
+                </div>
+           </div>
+           <br>
+           <div class = "container">
+               <h4 class="display-4">Sign in</h4>
+               <br>
+               <div class="input-group input-group-lg">
+                   <div class="input-group-prepend">
+                       <span class="input-group-text">Username</span>
+                   </div>
+                   <input type="text" class="form-control" id="signinuser">
+               </div>
+               <br>
+               <div class="input-group input-group-lg">
+                   <div class="input-group-prepend">
+                       <span class="input-group-text">Password</span>
+                   </div>
+                   <input type="text" class="form-control" id="signinpass">
+               </div>
+               <br>
+               <button type="button" class="btn btn-block btn-outline-success" id="signinbtn">Sign In</button>
+               <br>
+               <h4 class="display-6">Or</h4>
+               <br>
+               <!-- Found code info online via google api -->
+               <div class="g-signin2" data-onsuccess="onSignIn" data-width="400" data-height="60" data-longtitle="true"></div>
+               <br>
+               <h4 class="display-4">Create New Account</h4>
+               <br>
+               <div class="input-group input-group-lg">
+                   <div class="input-group-prepend">
+                       <span class="input-group-text">Full Name</span>
+                   </div>
+                   <input type="text" class="form-control">
+               </div>
+               <br>
+               <div class="input-group input-group-lg">
+                   <div class="input-group-prepend">
+                       <span class="input-group-text">Email</span>
+                   </div>
+                   <input type="text" class="form-control">
+               </div>
+               <br>
+               <div class="input-group input-group-lg">
+                   <div class="input-group-prepend">
+                       <span class="input-group-text">Password</span>
+                   </div>
+                   <input type="text" class="form-control" id="createpass">
+               </div>
+               <p class="font-italic" id="passrules">Must be at least 8 chars long and have at least one capital letter, one number, and one special character</p>
+               <p class="text-danger" id="errorcreate"> </p>
+               <button type="button" class="btn btn-block btn-outline-primary" onclick="passValid()">Create Account</button>
+        </div>
+        <script>
+            document.getElementById("signinuser").focus();
+            var user=document.getElementById("signinuser");
+            var pass=document.getElementById("signinpass");
+            // if(user.value!=""){
+            //     document.getElementById("signinbtn").disabled=false;
+            // }else{
+            //     document.getElementById("signinbtn").disabled=true;
+            // }
+            function passValid() { //currently only validates length (might add regex for capital/nums/special chars)
+                pass=document.getElementById("createpass").value;
+                if(pass.length<8){
+                    document.getElementById("errorcreate").innerHTML="Please enter a password that adheres to the rules shown above";
+                } else{
+                    document.getElementById("errorcreate").innerHTML="";
+                }
+            }
+        </script>
+   </body>
+ </html>
