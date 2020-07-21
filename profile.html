@@ -19,6 +19,26 @@ CS 4640
 	.col-md-auto{font-size: 30px;}
 	.col-lg-2{font-size: 24px;}
 	.col-lg-4{font-size: 24px;}
+	
+	/* The popup form - hidden by default */
+	.form-popup {
+	  display: none;
+	  position: absolute;
+	  left: 50%;
+	  top: 38%;
+	  transform: translate(-50%, -50%);
+	  border: 3px solid black;
+	  background-color: white;
+	}
+	
+	.form-container {
+		max-width: 800px;
+		max-height: 800px;
+		padding: 10px;
+		background-color: white;
+	}
+	
+	
   </style>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script> 
@@ -33,6 +53,7 @@ CS 4640
 	<div id="header"></div>
 	<div class = "container">
 		<div class= "text-center">
+			<br>
 			<h1>Profile Settings<h1>
 			<hr/>
 		</div>
@@ -101,17 +122,188 @@ CS 4640
 			<button type="button" id="delete_account" class="btn btn-block btn-danger btn-lg">Delete Account</button>
 		</div>
 	</div>
+	
+	
 </div>
+
+<div class="form-popup" id="user_form">
+  <form action="" class="form-container">
+    <h1>Change Username</h1>
+
+    <label for="new_user"><b>New Username:</b></label>
+    <input type="text" placeholder="Enter Username" id="user_entry" name="user_entry" required>
+
+    <button type="button" id="change_user_confirm" class="btn btn-block btn-primary btn-lg">Change Username</button>
+    <button type="button" id="user_form_close_btn" class="btn btn-block btn-danger btn-lg">Close</button>
+  </form>
+</div>
+
+<div class="form-popup" id="pass_form">
+  <form action="" class="form-container">
+    <h1>Change Password</h1>
+
+    <label for="new_user"><b>New Password:</b></label>
+    <input type="text" placeholder="Enter Password" id="pass_entry" name="pass_entry" required>
+
+    <button type="button" id="change_pass_confirm" class="btn btn-block btn-primary btn-lg">Change Password</button>
+    <button type="button" id="pass_form_close_btn" class="btn btn-block btn-danger btn-lg">Close</button>
+  </form>
+</div>
+
+<div class="form-popup" id="email_form">
+  <form action="" class="form-container">
+    <h1>Change Email</h1>
+
+    <label for="new_user"><b>New Email:</b></label>
+    <input type="text" placeholder="Enter Email" id="email_entry" name="email_entry" required>
+
+    <button type="button" id="change_email_confirm" class="btn btn-block btn-primary btn-lg">Change Email</button>
+    <button type="button" id="email_form_close_btn" class="btn btn-block btn-danger btn-lg">Close</button>
+  </form>
+</div>
+
+<div class="form-popup" id="phone_form">
+  <form action="" class="form-container">
+    <h1>Change Email</h1>
+
+    <label for="new_user"><b>New Phone #:</b></label>
+    <input type="text" placeholder="Enter Phone" id="phone_entry" name="phone_entry" required>
+
+    <button type="button" id="change_phone_confirm" class="btn btn-block btn-primary btn-lg">Change Phone #</button>
+    <button type="button" id="phone_form_close_btn" class="btn btn-block btn-danger btn-lg">Close</button>
+  </form>
+</div>
+
+
 <script>
 	var user_button = document.getElementById("change_user");
 	var email_button = document.getElementById("change_email");
 	var pass_button = document.getElementById("change_password");
 	var phone_button = document.getElementById("change_phone");
 	
-	user_button.onclick = () => {alert("Changing Username is not currently supported.");}
-	email_button.onclick = () => {alert("Changing Email is not currently supported.");}
-	pass_button.onclick = () => {alert("Changing Password is not currently supported.");}
-	phone_button.onclick = () => {alert("Changing Phone # is not currently supported.");}
+	user_button.onclick = function(){
+		document.getElementById("user_form").style.display = "block";
+		disable_buttons();
+	}
+	var user_form_submit = document.getElementById("change_user_confirm");
+	user_form_submit.onclick = function(){
+		var entry = document.getElementById("user_entry").value;
+		var user_text = document.getElementById("user_text");
+		if(entry.length == 0){
+			window.alert("Please input a value for the username.");
+		}else{
+			user_text.innerHTML = entry;
+			document.getElementById("user_entry").value = '';
+			document.getElementById("user_form").style.display = "none";
+			enable_buttons();
+		}
+		
+	}
+	
+	var user_form_close = document.getElementById("user_form_close_btn");
+	user_form_close_btn.onclick = function(){
+		document.getElementById("user_form").style.display = "none";
+		enable_buttons();
+	}
+	
+	email_button.onclick = function(){
+		document.getElementById("email_form").style.display = "block";
+		disable_buttons();
+	}
+	
+	var email_form_submit = document.getElementById("change_email_confirm");
+	email_form_submit.onclick = function(){
+		var entry = document.getElementById("email_entry").value;
+		var email_text = document.getElementById("email_text");
+		if(entry.length == 0){
+			window.alert("Please input a value for the email.");
+		}else{
+			email_text.innerHTML = entry;
+			document.getElementById("email_entry").value = '';
+			document.getElementById("email_form").style.display = "none";
+			enable_buttons();
+		}
+		
+	}
+	
+	var email_form_close = document.getElementById("email_form_close_btn");
+	email_form_close_btn.onclick = function(){
+		document.getElementById("email_form").style.display = "none";
+		enable_buttons();
+	}
+	
+	
+	
+	pass_button.onclick = function(){
+		document.getElementById("pass_form").style.display = "block";
+		disable_buttons();
+	}
+	
+	var pass_form_submit = document.getElementById("change_pass_confirm");
+	pass_form_submit.onclick = function(){
+		var entry = document.getElementById("pass_entry").value;
+		var user_text = document.getElementById("pass_text");
+		if(entry.length == 0){
+			window.alert("Please input a value for the password.");
+		}else{
+			pass_text.innerHTML = entry;
+			document.getElementById("pass_entry").value = '';
+			document.getElementById("pass_form").style.display = "none";
+			enable_buttons();
+		}
+		
+	}
+	
+	var pass_form_close = document.getElementById("pass_form_close_btn");
+	pass_form_close_btn.onclick = function(){
+		document.getElementById("pass_form").style.display = "none";
+		enable_buttons();
+	}
+	
+
+	
+	phone_button.onclick = function(){
+		document.getElementById("phone_form").style.display = "block";
+		disable_buttons();
+	}
+	
+	var phone_form_submit = document.getElementById("change_phone_confirm");
+	phone_form_submit.onclick = function(){
+		var entry = document.getElementById("phone_entry").value;
+		var user_text = document.getElementById("phone_text");
+		if(entry.length == 0){
+			window.alert("Please input a value for the phone.");
+		}else{
+			phone_text.innerHTML = entry;
+			document.getElementById("phone_entry").value = '';
+			document.getElementById("phone_form").style.display = "none";
+			enable_buttons();
+		}
+		
+	}
+	
+	var phone_form_close = document.getElementById("phone_form_close_btn");
+	phone_form_close_btn.onclick = function(){
+		document.getElementById("phone_form").style.display = "none";
+		enable_buttons();
+	}
+	
+	
+	
+	function disable_buttons(){
+		$(user_button).prop('disabled', true);
+		$(email_button).prop('disabled', true);
+		$(pass_button).prop('disabled', true);
+		$(phone_button).prop('disabled', true);
+	}
+	
+	function enable_buttons(){
+		$(user_button).prop('disabled', false);
+		$(email_button).prop('disabled', false);
+		$(pass_button).prop('disabled', false);
+		$(phone_button).prop('disabled', false);
+	}
+	
 	
 	var del_button = document.getElementById("delete_account");
 	
