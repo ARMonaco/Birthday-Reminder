@@ -6,34 +6,19 @@ CS 4640
 <head>
   <meta charset="utf-8">
 
-  <!-- 2. include meta tag to ensure proper rendering and touch zooming
-         (bootstrap is designed to be responsive to mobile.
-         Mobile-first styles are part of the core framework.)
-   -->  
  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- the width=device-width part sets the width of the page to follow
-          the screen-width of the device (which wil vary depending on the device)
-       the initial-scale=1 part sets the initialize zoom level when the page 
-          is first loaded by the browser. 
-   --> 
-  
-  <!-- The above 2 meta tags *must* come first in the head; any other head content must come *after* these tags -->   
+
   <title>Birthday Reminder Profile</title>    
   
-  <!-- 3. link bootstrap pages
-          Two basic bootstrap pages are  
-             https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css
-             https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js
-          To use bootstrap.min.js, need jquery
-             https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js
-          (if only use css bootstrap, only link to the css)
-   -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" /> 
   <style>
-	.error{color: red; font-style: italic; padding: 10px;}
+	.error{color: red; font-style: italic; padding: 5px;}
 	.nav-link {
 		color: white;
 	}
+	.col-md-auto{font-size: 30px;}
+	.col-lg-2{font-size: 24px;}
+	.col-lg-4{font-size: 24px;}
   </style>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script> 
@@ -46,6 +31,120 @@ CS 4640
 
 <body>
 	<div id="header"></div>
-	<h1>"yeah"</h1>
+	<div class = "container">
+		<div class= "text-center">
+			<h1>Profile Settings<h1>
+			<hr/>
+		</div>
+	</div>
+	<br>
+<div class="container">
+  <div class="row justify-content-md-center">
+    <div class="col col-lg-2">
+		<div class= "text-right"><p id="user_label">Username:</p></div>
+    </div>
+    <div class="col col-lg-4">
+      <p id="user_text">loganhylton99</p>
+    </div>
+	<div class="col col-lg-3">
+		<button type="button" id="change_user" class="btn btn-block btn-primary btn-lg">Change Username</button>
+	</div>
+	
+  </div>
+  <br><br>
+  <div class="row justify-content-md-center">
+    <div class="col col-lg-2">
+		<div class= "text-right"><p id="email_label">Email:</p></div>
+    </div>
+    <div class="col col-lg-4">
+      <p id="email_text">logan.hylton@hylton.com</p>
+    </div>
+	<div class="col col-lg-3">
+		<button type="button" id="change_email" class="btn btn-block btn-primary btn-lg">Change Email</button>
+    </div>
+	</div>
+	<br><br>
+	<div class="row justify-content-md-center">
+		<div class="col col-lg-2">
+			<div class= "text-right"><p id="pass_label">Password:</p></div>
+		</div>
+		<div class="col col-lg-4">
+		  <p id="pass_text">HiltonHotelStan420</p>
+		</div>
+
+		<div class="col col-lg-3">
+			<button type="button" id="change_password" class="btn btn-block btn-primary btn-lg">Change Password</button>
+		</div>
+
+	</div>
+	<br><br>
+	
+	<div class="row justify-content-md-center">
+		<div class="col col-lg-2">
+			<div class= "text-right"><p id="phone_label">Phone #:</p></div>
+		</div>
+		<div class="col col-lg-4">
+		  <p id="phone_text">304-667-7327</p>
+		</div>
+		
+		<div class="col col-lg-3">
+			<button type="button" id="change_phone" class="btn btn-block btn-primary btn-lg">Change Phone #</button>
+		</div>
+
+	</div>
+	<hr/>
+</div>
+<div class="container">
+	<br>
+	<div class="row justify-content-md-center">
+		<div class="col col-lg-4">
+			<button type="button" id="delete_account" class="btn btn-block btn-danger btn-lg">Delete Account</button>
+		</div>
+	</div>
+</div>
+<script>
+	var user_button = document.getElementById("change_user");
+	var email_button = document.getElementById("change_email");
+	var pass_button = document.getElementById("change_password");
+	var phone_button = document.getElementById("change_phone");
+	
+	user_button.onclick = () => {alert("Changing Username is not currently supported.");}
+	email_button.onclick = () => {alert("Changing Email is not currently supported.");}
+	pass_button.onclick = () => {alert("Changing Password is not currently supported.");}
+	phone_button.onclick = () => {alert("Changing Phone # is not currently supported.");}
+	
+	var del_button = document.getElementById("delete_account");
+	
+	del_button.onclick = function(){
+		var prompt = confirm("Are you sure you want to delete your account?");
+		if(prompt == true){
+			document.getElementById("user_label").style.color = "red";
+			document.getElementById("user_text").style.color = "red";
+			document.getElementById("user_text").innerHTML = "DELETED!";
+			$(user_button).prop('disabled', true);
+			user_button.style.background = "gray";
+			
+			document.getElementById("email_label").style.color = "red";
+			document.getElementById("email_text").style.color = "red";
+			document.getElementById("email_text").innerHTML = "DELETED!";
+			$(email_button).prop('disabled', true);
+			email_button.style.background = "gray";
+			
+			document.getElementById("pass_label").style.color = "red";
+			document.getElementById("pass_text").style.color = "red";
+			document.getElementById("pass_text").innerHTML = "DELETED!";
+			$(pass_button).prop('disabled', true);
+			pass_button.style.background = "gray";
+			
+			document.getElementById("phone_label").style.color = "red";
+			document.getElementById("phone_text").style.color = "red";
+			document.getElementById("phone_text").innerHTML = "DELETED!";
+			$(phone_button).prop('disabled', true);
+			phone_button.style.background = "gray";
+		}
+
+	}
+			
+</script>
 </body>
 </html>

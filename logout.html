@@ -1,0 +1,77 @@
+<!-- Alexander Monaco & Shreyas Mehta
+CS 4640
+-->
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Birthday Reminder Logout</title>    
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" /> 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+	.error{color: red; font-style: italic; padding: 10px;}
+	.nav-link {
+		color: white;
+	}
+  </style>
+  
+	<script> 
+	$(function(){
+		$("#header").load("navbar_header.html"); 
+		});
+	</script> 
+</head>
+<body>
+
+	<div id="header"></div>
+	<div class = "container">
+		<div class = "pt-5"><div class="pb-3">
+			<h2 class = "text-center">Are you sure you want to log out?<h2>
+		</div></div>
+		<div class="text-center">
+			<button type="button" id="logout" class="btn btn-danger btn-lg">LOG OUT</button>
+			<button type="button" id= "return" class="btn btn-secondary btn-lg">RETURN TO PROFILE</button>
+			<br>
+			<p hidden id="logout_msg">Logging you out in 5 seconds...<br>Note that there is no logout backend to support this right now; you will be redirected to the home page.</p>
+		</div>
+		
+		
+    <!-- <p>You will be redirected in 3 seconds</p> -->
+    <!-- <script> -->
+        <!-- var timer = setTimeout(function() { -->
+            <!-- window.location='http://example.com' -->
+        <!-- }, 3000); -->
+    <!-- </script> -->
+	
+		<script>
+			var logout_btn = document.getElementById("logout");
+			var return_btn = document.getElementById("return");
+			
+			var logout_time = 5000;
+			
+			return_btn.onclick = function(){
+				window.location = "profile.html";
+			}
+			
+			logout_btn.onclick = function(){
+				document.getElementById("logout_msg").removeAttribute("hidden");
+				$(logout_btn).prop('disabled', true);
+				$(return_btn).prop('disabled', true);
+				
+				
+				setTimeout(function(){
+					window.location = "profile.html";
+				},logout_time);
+				
+			}
+		</script>
+			
+		</div>
+	</div>
+</body>
+</html>
