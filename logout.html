@@ -37,7 +37,7 @@ CS 4640
 			<button type="button" id="logout" class="btn btn-danger btn-lg">LOG OUT</button>
 			<button type="button" id= "return" class="btn btn-secondary btn-lg">RETURN TO PROFILE</button>
 			<br>
-			<p hidden id="logout_msg">Logging you out in 5 seconds...<br>Note that there is no logout backend to support this right now; you will be redirected to the home page.</p>
+			<p hidden id="logout_msg">Logging you out in 5 seconds...<br>Note that there is no logout backend to support this right now; you will be redirected to the sign-in page.</p>
 		</div>
 		
 		
@@ -65,7 +65,7 @@ CS 4640
 				
 				
 				setTimeout(function(){
-					window.location = "profile.html";
+					window.location = "signin.html";
 				},logout_time);
 				
 			}
