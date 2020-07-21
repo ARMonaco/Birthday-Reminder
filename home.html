@@ -44,18 +44,57 @@ CS 4640
 	<script> 
 	$(function(){
 		$("#header").load("navbar_header.html"); 
+		$("#cal_temp").load("calendar.html"); 
 		});
 	</script> 
-</script> 
+	<link rel="stylesheet" href="calendar.css" />
 </head>
 
 <body>
-	<div id="header"></div>
+<div id="header"></div>
 	<div class = "container">
 		<div class= "text-center">
 			<br>
-			<h1>Welcome back, loganhylton!99<h1>
+			<h1>Welcome back, loganhylton99!<h1>
 			<hr/>
+			<h3>Upcoming Birthdays</h3>
+		</div>
+	</div>
+<div class="container">
+<br>
+	<div class="row">
+		<div class="col">
+			<div class= "text-center">Calendar View (This Month)</div>
+			<div id="cal_temp"></div>
+		</div>
+		<div class="col">
+			<div class= "text-center">List View</div>
+				<ul class="list-group">
+				  <li class="list-group-item">John Doe - July 23</li>
+				  <li class="list-group-item">Jane Doe - July 28</li>
+				  <li class="list-group-item">Marissa Doe - July 31</li>
+				  <li class="list-group-item">Wes Doe - August 3</li>
+				  <li class="list-group-item">Taylor Doe - August 4</li>
+				</ul>
+				<div class="d-flex justify-content-center">
+				<ul class="pagination">
+					<li class="page-item"><a class="page-link" href="#">Previous</a></li>
+					<li class="page-item"><a class="page-link" href="#">Next</a></li>
+				</ul>
+				</div>
 		</div>
 	</div>
 	<br>
+	<div class="row justify-content-md-center">
+		<div class="col col-lg-4">
+			<button type="button" id="address_button" class="btn btn-block btn-primary btn-lg">Create/Edit a Contact</button>
+		</div>
+		<script>
+			var adr_button = document.getElementById("address_button");
+			adr_button.onclick = () => window.location.href= "newdate.html";
+		</script>
+	</div>
+</div>
+<br>
+</body>
+</html>
