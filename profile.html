@@ -4,53 +4,61 @@ CS 4640
 
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+	<meta charset="utf-8">
 
- <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Birthday Reminder Profile</title>    
+	<title>Birthday Reminder Profile</title>    
   
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" /> 
-  <style>
-	.error{color: red; font-style: italic; padding: 5px;}
-	.nav-link {
-		color: white;
-	}
-	.col-md-auto{font-size: 30px;}
-	.col-lg-2{font-size: 24px;}
-	.col-lg-4{font-size: 24px;}
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" /> 
+	<style>
+		.error{color: red; font-style: italic; padding: 5px;}
+		.nav-link {
+			color: white;
+		}
 	
-	/* The popup form - hidden by default */
-	.form-popup {
-	  display: none;
-	  position: absolute;
-	  left: 50%;
-	  top: 38%;
-	  transform: translate(-50%, -50%);
-	  border: 3px solid black;
-	  background-color: white;
-	}
+		<!-- changes font sizes for this page -->
+		.col-md-auto{font-size: 30px;}
+		.col-lg-2{font-size: 24px;}
+		.col-lg-4{font-size: 24px;}
 	
-	.form-container {
-		max-width: 800px;
-		max-height: 800px;
-		padding: 10px;
-		background-color: white;
-	}
+		<!-- style for the popup windows for changing information -->
+		.form-popup {
+		  display: none;
+		  position: absolute;
+		  left: 50%;
+		  top: 38%;
+		  transform: translate(-50%, -50%);
+		  border: 3px solid black;
+		  background-color: white;
+		}
+	
+		<!-- styles form container to give the background a white color -->
+		.form-container {
+			max-width: 800px;
+			max-height: 800px;
+			padding: 10px;
+			background-color: white;
+		}
 	
 	
-  </style>
+	</style>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	
+	<!-- loads navbar header -->
 	<script> 
 	$(function(){
 		$("#header").load("navbar_header.html"); 
 		});
-	</script> 
-</script> 
+	</script>  
+	
+	
 </head>
 
 <body>
-	<div id="header"></div>
+
+<!-- Profile Settings header at top of page -->
+<div id="header"></div>
 	<div class = "container">
 		<div class= "text-center">
 			<br>
@@ -58,33 +66,41 @@ CS 4640
 			<hr/>
 		</div>
 	</div>
-	<br>
-<div class="container">
-  <div class="row justify-content-md-center">
-    <div class="col col-lg-2">
-		<div class= "text-right"><p id="user_label">Username:</p></div>
-    </div>
-    <div class="col col-lg-4">
-      <p id="user_text">loganhylton99</p>
-    </div>
-	<div class="col col-lg-3">
-		<button type="button" id="change_user" class="btn btn-block btn-primary btn-lg">Change Username</button>
-	</div>
+<br>
 	
-  </div>
-  <br><br>
-  <div class="row justify-content-md-center">
-    <div class="col col-lg-2">
-		<div class= "text-right"><p id="email_label">Email:</p></div>
-    </div>
-    <div class="col col-lg-4">
-      <p id="email_text">logan.hylton@hylton.com</p>
-    </div>
-	<div class="col col-lg-3">
-		<button type="button" id="change_email" class="btn btn-block btn-primary btn-lg">Change Email</button>
-    </div>
+<!-- main container for page -->
+<div class="container">
+
+	<!-- username row -->
+	<div class="row justify-content-md-center">
+		<div class="col col-lg-2">
+			<div class= "text-right"><p id="user_label">Username:</p></div>
+		</div>
+		<div class="col col-lg-4">
+			<p id="user_text">loganhylton99</p>
+		</div>
+		<div class="col col-lg-3">
+			<button type="button" id="change_user" class="btn btn-block btn-primary btn-lg">Change Username</button>
+		</div>
+
+	</div>
+  
+	<br><br>
+	<!-- email row -->
+	<div class="row justify-content-md-center">
+		<div class="col col-lg-2">
+			<div class= "text-right"><p id="email_label">Email:</p></div>
+		</div>
+		<div class="col col-lg-4">
+		  <p id="email_text">logan.hylton@hylton.com</p>
+		</div>
+		<div class="col col-lg-3">
+			<button type="button" id="change_email" class="btn btn-block btn-primary btn-lg">Change Email</button>
+		</div>
 	</div>
 	<br><br>
+	
+	<!-- password row -->
 	<div class="row justify-content-md-center">
 		<div class="col col-lg-2">
 			<div class= "text-right"><p id="pass_label">Password:</p></div>
@@ -100,6 +116,8 @@ CS 4640
 	</div>
 	<br><br>
 	
+	
+	<!-- phone number row -->
 	<div class="row justify-content-md-center">
 		<div class="col col-lg-2">
 			<div class= "text-right"><p id="phone_label">Phone #:</p></div>
@@ -111,10 +129,12 @@ CS 4640
 		<div class="col col-lg-3">
 			<button type="button" id="change_phone" class="btn btn-block btn-primary btn-lg">Change Phone #</button>
 		</div>
-
 	</div>
 	<hr/>
 </div>
+
+
+<!-- delete account button -->
 <div class="container">
 	<br>
 	<div class="row justify-content-md-center">
@@ -122,69 +142,79 @@ CS 4640
 			<button type="button" id="delete_account" class="btn btn-block btn-danger btn-lg">Delete Account</button>
 		</div>
 	</div>
-	
-	
 </div>
 
+
+<!-- username change form -->
 <div class="form-popup" id="user_form">
-  <form action="" class="form-container">
-    <h1>Change Username</h1>
+	<form action="" class="form-container">
+		<h1>Change Username</h1>
 
-    <label for="new_user"><b>New Username:</b></label>
-    <input type="text" placeholder="Enter Username" id="user_entry" name="user_entry" required>
+		<label for="new_user"><b>New Username:</b></label>
+		<input type="text" placeholder="Enter Username" id="user_entry" name="user_entry" required>
 
-    <button type="button" id="change_user_confirm" class="btn btn-block btn-primary btn-lg">Change Username</button>
-    <button type="button" id="user_form_close_btn" class="btn btn-block btn-danger btn-lg">Close</button>
+		<button type="button" id="change_user_confirm" class="btn btn-block btn-primary btn-lg">Change Username</button>
+		<button type="button" id="user_form_close_btn" class="btn btn-block btn-danger btn-lg">Close</button>
   </form>
 </div>
 
+
+<!-- password change form -->
 <div class="form-popup" id="pass_form">
-  <form action="" class="form-container">
-    <h1>Change Password</h1>
+	<form action="" class="form-container">
+		<h1>Change Password</h1>
 
-    <label for="new_user"><b>New Password:</b></label>
-    <input type="text" placeholder="Enter Password" id="pass_entry" name="pass_entry" required>
+		<label for="new_user"><b>New Password:</b></label>
+		<input type="text" placeholder="Enter Password" id="pass_entry" name="pass_entry" required>
 
-    <button type="button" id="change_pass_confirm" class="btn btn-block btn-primary btn-lg">Change Password</button>
-    <button type="button" id="pass_form_close_btn" class="btn btn-block btn-danger btn-lg">Close</button>
-  </form>
+		<button type="button" id="change_pass_confirm" class="btn btn-block btn-primary btn-lg">Change Password</button>
+		<button type="button" id="pass_form_close_btn" class="btn btn-block btn-danger btn-lg">Close</button>
+	</form>
 </div>
 
+<!-- email change form -->
 <div class="form-popup" id="email_form">
-  <form action="" class="form-container">
-    <h1>Change Email</h1>
+	<form action="" class="form-container">
+		<h1>Change Email</h1>
 
-    <label for="new_user"><b>New Email:</b></label>
-    <input type="text" placeholder="Enter Email" id="email_entry" name="email_entry" required>
+		<label for="new_user"><b>New Email:</b></label>
+		<input type="text" placeholder="Enter Email" id="email_entry" name="email_entry" required>
 
-    <button type="button" id="change_email_confirm" class="btn btn-block btn-primary btn-lg">Change Email</button>
-    <button type="button" id="email_form_close_btn" class="btn btn-block btn-danger btn-lg">Close</button>
-  </form>
+		<button type="button" id="change_email_confirm" class="btn btn-block btn-primary btn-lg">Change Email</button>
+		<button type="button" id="email_form_close_btn" class="btn btn-block btn-danger btn-lg">Close</button>
+	</form>
 </div>
 
+
+<!-- phone change form -->
 <div class="form-popup" id="phone_form">
-  <form action="" class="form-container">
-    <h1>Change Email</h1>
+	<form action="" class="form-container">
+		<h1>Change Email</h1>
 
-    <label for="new_user"><b>New Phone #:</b></label>
-    <input type="text" placeholder="Enter Phone" id="phone_entry" name="phone_entry" required>
+		<label for="new_user"><b>New Phone #:</b></label>
+		<input type="text" placeholder="Enter Phone" id="phone_entry" name="phone_entry" required>
 
-    <button type="button" id="change_phone_confirm" class="btn btn-block btn-primary btn-lg">Change Phone #</button>
-    <button type="button" id="phone_form_close_btn" class="btn btn-block btn-danger btn-lg">Close</button>
-  </form>
+		<button type="button" id="change_phone_confirm" class="btn btn-block btn-primary btn-lg">Change Phone #</button>
+		<button type="button" id="phone_form_close_btn" class="btn btn-block btn-danger btn-lg">Close</button>
+	</form>
 </div>
 
 
 <script>
+	
+	<!-- gets the buttons -->
 	var user_button = document.getElementById("change_user");
 	var email_button = document.getElementById("change_email");
 	var pass_button = document.getElementById("change_password");
 	var phone_button = document.getElementById("change_phone");
 	
+	<!-- USERNAME BUTTON SECTION -->
+	<!-- username button click -->
 	user_button.onclick = function(){
 		document.getElementById("user_form").style.display = "block";
 		disable_buttons();
 	}
+	<!-- username form submit validation -->
 	var user_form_submit = document.getElementById("change_user_confirm");
 	user_form_submit.onclick = function(){
 		var entry = document.getElementById("user_entry").value;
@@ -199,18 +229,22 @@ CS 4640
 		}
 		
 	}
-	
+	<!-- username form close button -->
 	var user_form_close = document.getElementById("user_form_close_btn");
 	user_form_close_btn.onclick = function(){
 		document.getElementById("user_form").style.display = "none";
 		enable_buttons();
 	}
 	
+	<!-- ------------------------------------------------------------------ -->
+	
+	<!-- EMAIL BUTTON SECTION -->
+	<!-- email button click -->
 	email_button.onclick = function(){
 		document.getElementById("email_form").style.display = "block";
 		disable_buttons();
 	}
-	
+	<!-- email form submit validation -->
 	var email_form_submit = document.getElementById("change_email_confirm");
 	email_form_submit.onclick = function(){
 		var entry = document.getElementById("email_entry").value;
@@ -225,20 +259,22 @@ CS 4640
 		}
 		
 	}
-	
+	<!-- email form close button -->
 	var email_form_close = document.getElementById("email_form_close_btn");
 	email_form_close_btn.onclick = function(){
 		document.getElementById("email_form").style.display = "none";
 		enable_buttons();
 	}
 	
+	<!-- ------------------------------------------------------------------ -->
 	
-	
+	<!-- PASSWORD BUTTON SECTION -->
+	<!-- change password button click -->
 	pass_button.onclick = function(){
 		document.getElementById("pass_form").style.display = "block";
 		disable_buttons();
 	}
-	
+	<!-- password form submit validation -->
 	var pass_form_submit = document.getElementById("change_pass_confirm");
 	pass_form_submit.onclick = function(){
 		var entry = document.getElementById("pass_entry").value;
@@ -253,20 +289,22 @@ CS 4640
 		}
 		
 	}
-	
+	<!-- password form close button -->
 	var pass_form_close = document.getElementById("pass_form_close_btn");
 	pass_form_close_btn.onclick = function(){
 		document.getElementById("pass_form").style.display = "none";
 		enable_buttons();
 	}
 	
-
+	<!-- ------------------------------------------------------------------ -->
 	
+	<!-- PHONE BUTTON SECTION -->
+	<!-- phone button click -->
 	phone_button.onclick = function(){
 		document.getElementById("phone_form").style.display = "block";
 		disable_buttons();
 	}
-	
+	<!-- phone form validation -->
 	var phone_form_submit = document.getElementById("change_phone_confirm");
 	phone_form_submit.onclick = function(){
 		var entry = document.getElementById("phone_entry").value;
@@ -281,15 +319,18 @@ CS 4640
 		}
 		
 	}
-	
+	<!-- phone form close button -->
 	var phone_form_close = document.getElementById("phone_form_close_btn");
 	phone_form_close_btn.onclick = function(){
 		document.getElementById("phone_form").style.display = "none";
 		enable_buttons();
 	}
 	
+	<!-- ------------------------------------------------------------------ -->
+	<!-- ------------------------------------------------------------------ -->
+	<!-- ------------------------------------------------------------------ -->
 	
-	
+	<!-- FUNCTION THAT DISABLES BUTTONS -->
 	function disable_buttons(){
 		$(user_button).prop('disabled', true);
 		$(email_button).prop('disabled', true);
@@ -297,6 +338,7 @@ CS 4640
 		$(phone_button).prop('disabled', true);
 	}
 	
+	<!-- FUNCTION THAT ENABLES BUTTONS -->
 	function enable_buttons(){
 		$(user_button).prop('disabled', false);
 		$(email_button).prop('disabled', false);
@@ -307,6 +349,7 @@ CS 4640
 	
 	var del_button = document.getElementById("delete_account");
 	
+	<!-- delete button, which "deletes" all current items -->
 	del_button.onclick = function(){
 		var prompt = confirm("Are you sure you want to delete your account?");
 		if(prompt == true){
