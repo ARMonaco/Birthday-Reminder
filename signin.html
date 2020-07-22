@@ -38,10 +38,8 @@
             .g-signin2 > div{
               margin: auto;
             }
-            /* body{
-                background-image:url("Images/calendar1.png");
-            } */
         </style>
+        <!-- Main header lable and about us button -->
         <div class = "container2">
             <div class = "jumbotron">
                 <div class= "text-center">
@@ -55,6 +53,7 @@
        </div>
        <br>
        <div class = "container">
+           <!-- sign in username/password inputs and google sign in option -->
            <h4 class="display-4">Sign in</h4>
            <br>
            <div class="input-group input-group-lg">
@@ -77,6 +76,7 @@
            <br>
            <div class="g-signin2" data-onsuccess="onSignIn" data-width="400" data-height="60" data-longtitle="true"></div>
            <br><hr/><br>
+           <!-- New account creation -->
            <h4 class="display-4">Create New Account</h4>
            <br>
            <div class="input-group input-group-lg">
@@ -112,8 +112,10 @@
 
     </div>
     <script>
-        document.getElementById("signinuser").focus();
-        document.getElementById("createspinner").style.display = "none";
+        document.getElementById("signinuser").focus(); //focus on first input on startup
+        document.getElementById("createspinner").style.display = "none"; //hide loading spinner
+
+        //Listens to input to user and pass. Enable/disable sign in button based on filled/empty fields
         function signInBtnDis(){
             user=document.getElementById("signinuser");
             pass=document.getElementById("signinpass");
@@ -123,6 +125,8 @@
                 document.getElementById("signinbtn").disabled=true;
             }
         }
+
+        //Listens to input to user, email, and pass. Enable/disable create account button based on filled/empty fields
         function createBtnDis(){
             username=document.getElementById("createuser");
             pass=document.getElementById("createpass");
@@ -133,6 +137,7 @@
                 document.getElementById("createBtn").disabled=true;
             }
         }
+        //"Create account" password length validation (further rules in future)
         function passValid() { //currently only validates length (might add regex for capital/nums/special chars)
             pass=document.getElementById("createpass").value;
             if(pass.length<8){
@@ -146,7 +151,9 @@
                 document.getElementById("createBtn").appendChild(spin);
             }
         }
-        function validateUser() { //currently only validates length (might add regex for capital/nums/special chars)
+        //"Sign in" that validates username and password and signs in if valid
+            //currently just loads for a second and then logs in
+        function validateUser() { //currently no database to use to validate input
             user=document.getElementById("signinuser").value;
             pass=document.getElementById("signinpass").value;
             var spin= document.createElement("SPAN");
@@ -157,7 +164,6 @@
             // Insert code to check database to validate user information
             setTimeout(() => { document.location='profile.html'} ,800)
         }
-
     </script>
    </body>
  </html>
