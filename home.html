@@ -4,43 +4,42 @@ CS 4640
 
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+	<meta charset="utf-8">
 
- <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Birthday Reminder Profile</title>    
-  
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" /> 
-  <style>
-	.error{color: red; font-style: italic; padding: 5px;}
-	.nav-link {
-		color: white;
-	}
-	.col-md-auto{font-size: 30px;}
-	.col-lg-2{font-size: 24px;}
-	.col-lg-4{font-size: 24px;}
+	<title>Birthday Reminder Profile</title>    
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" /> 
+	<style>
+		.error{color: red; font-style: italic; padding: 5px;}
+		.nav-link {
+			color: white;
+		}
+		.col-md-auto{font-size: 30px;}
+		.col-lg-2{font-size: 24px;}
+		.col-lg-4{font-size: 24px;}
+
+		.form-popup {
+		  display: none;
+		  position: absolute;
+		  left: 50%;
+		  top: 38%;
+		  transform: translate(-50%, -50%);
+		  border: 3px solid black;
+		  background-color: white;
+		}
+
+		.form-container {
+			max-width: 800px;
+			max-height: 800px;
+			padding: 10px;
+			background-color: white;
+		}
+	</style>
 	
-	/* The popup form - hidden by default */
-	.form-popup {
-	  display: none;
-	  position: absolute;
-	  left: 50%;
-	  top: 38%;
-	  transform: translate(-50%, -50%);
-	  border: 3px solid black;
-	  background-color: white;
-	}
-	
-	.form-container {
-		max-width: 800px;
-		max-height: 800px;
-		padding: 10px;
-		background-color: white;
-	}
-	
-	
-  </style>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<!-- loads html files for navbar and calendar -->
 	<script> 
 	$(function(){
 		$("#header").load("navbar_header.html"); 
@@ -51,6 +50,7 @@ CS 4640
 </head>
 
 <body>
+<!-- header at the top of the page that welcomes back user -->
 <div id="header"></div>
 	<div class = "container">
 		<div class= "text-center">
@@ -60,14 +60,19 @@ CS 4640
 			<h3>Upcoming Birthdays</h3>
 		</div>
 	</div>
+	
 <div class="container">
 <br>
 	<div class="row">
+	<!-- calendar section -->
 		<div class="col">
 			<div class= "text-center">Calendar View (This Month)</div>
 			<div id="cal_temp"></div>
 		</div>
+		
 		<div class="col">
+		
+		<!-- list view section; will have multiple pages when back-end is implemented. -->
 			<div class= "text-center">List View</div>
 				<ul class="list-group">
 				  <li class="list-group-item">John Doe - July 23</li>
@@ -85,6 +90,7 @@ CS 4640
 		</div>
 	</div>
 	<br>
+	<!-- button that takes you to address book -->
 	<div class="row justify-content-md-center">
 		<div class="col col-lg-4">
 			<button type="button" id="address_button" class="btn btn-block btn-primary btn-lg">Create/Edit a Contact</button>
