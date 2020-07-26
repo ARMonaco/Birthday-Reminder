@@ -2,6 +2,16 @@
 CS 4640
 -->
 
+<?php session_start(); // make sessions available ?>
+<?php
+
+if (!isset($_SESSION['user']))
+{
+	header('Location: signin.php');
+}
+
+?>
+
 <html lang="en">
 <head>
 	<meta charset="utf-8">
@@ -46,7 +56,7 @@ CS 4640
 			<div class= "text-right"><p id="user_label">Username:</p></div>
 		</div>
 		<div class="col col-lg-4">
-			<p id="user_text">loganhylton99</p>
+			<p id="user_text"><?php echo $_SESSION['user'];?></p>
 		</div>
 		<div class="col col-lg-3">
 			<button type="button" id="change_user" class="btn btn-block btn-primary btn-lg">Change Username</button>
@@ -61,7 +71,7 @@ CS 4640
 			<div class= "text-right"><p id="email_label">Email:</p></div>
 		</div>
 		<div class="col col-lg-4">
-		  <p id="email_text">logan.hylton@hylton.com</p>
+		  <p id="email_text"><?php echo $_SESSION['email'];?></p>
 		</div>
 		<div class="col col-lg-3">
 			<button type="button" id="change_email" class="btn btn-block btn-primary btn-lg">Change Email</button>
@@ -75,7 +85,7 @@ CS 4640
 			<div class= "text-right"><p id="pass_label">Password:</p></div>
 		</div>
 		<div class="col col-lg-4">
-		  <p id="pass_text">HiltonHotelStan420</p>
+		  <p id="pass_text"><?php echo $_SESSION['pwd'];?></p>
 		</div>
 
 		<div class="col col-lg-3">
@@ -92,7 +102,7 @@ CS 4640
 			<div class= "text-right"><p id="phone_label">Phone #:</p></div>
 		</div>
 		<div class="col col-lg-4">
-		  <p id="phone_text">304-667-7327</p>
+		  <p id="phone_text"><?php echo $_SESSION['phone'];?></p>
 		</div>
 		
 		<div class="col col-lg-3">

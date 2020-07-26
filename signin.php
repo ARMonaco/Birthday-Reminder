@@ -15,33 +15,40 @@ function reject($entry)
 
 if ($_SERVER['REQUEST_METHOD'] == "POST" && strlen($_POST['signinuser']) > 0)
 {
+	require("load_user_db.php");
    $user = trim($_POST['signinuser']);
-   echo $user;
-   if (!ctype_alnum($user))   // ctype_alnum() check if the values contain only alphanumeric data
-   {
-      reject('User Name');
-   }
+   $pass = trim($_POST['signinpass']);
+
+   // if (!ctype_alnum($user))   // ctype_alnum() check if the values contain only alphanumeric data
+   // {
+      // reject('User Name');
+   // }
 		
-   if (isset($_POST['signinpass']))
-   {
-      $pwd = trim($_POST['signinpass']);
-      if (!ctype_alnum($pwd))
-         reject('Password');
-      else
-      {
-         // set session attributes
+		
+	$query = "SELECT * FROM user_info WHERE username='$user' AND password='$pass'";
+	$statement = $db->prepare($query);
+	$statement->execute();
+	$result = $statement->fetch();
+	
+	$statement->closeCursor();
+	
+	if (strlen($result['username']) > 0 && strlen($result['password']) > 0){
+		// set session attributes
          $_SESSION['user'] = $user;
          
-         $hash_pwd = md5($pwd);
-//          $hash_pwd = password_hash($pwd, PASSWORD_DEFAULT);
-//          $hash_pwd = password_hash($pwd, PASSWORD_BCRYPT);
+         // $hash_pwd = md5($pwd);
+		 // $hash_pwd = password_hash($pwd, PASSWORD_DEFAULT);
+		 // $hash_pwd = password_hash($pwd, PASSWORD_BCRYPT);
          
-         $_SESSION['pwd'] = $hash_pwd;
+         $_SESSION['pwd'] = $pass;
+		 
+		 $_SESSION['email'] = $result['email'];
+		 $_SESSION['phone'] = $result['phone'];
          
          // redirect the browser to another page using the header() function to specify the target URL
          header('Location: home.php');
-      }
-   }
+	}
+	
 }
 
 ?>
@@ -103,7 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && strlen($_POST['signinuser']) > 0)
            <!-- sign in username/password inputs and google sign in option -->
            <h4 class="display-4">Sign in</h4>
            <br>
-		   <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
+		   <form id="signin_form" action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
 			   <div class="input-group input-group-lg">
 				   <div class="input-group-prepend">
 					   <span class="input-group-text">Username</span>
