@@ -6,14 +6,33 @@ CS4640 -->
 ?>
 
 <?php
-// Define a function to handle failed validation attempts 
 function reject($entry)
 {
-//    echo 'Please <a href="login.php">Log in </a>';
-   exit();    // exit the current script, no value is returned
+   exit();    
 }
 
-if ($_SERVER['REQUEST_METHOD'] == "POST" && strlen($_POST['signinuser']) > 0)
+function error_msg($error)
+{
+	$msg = "";
+	switch($error){
+		case "credentials":
+			$msg = "Invalid username/password combination. Please try again.";
+		case "usertaken":
+			$msg = "Username already taken. Please try another email.";
+		case "emailtaken":
+			$msg = "Email already taken. Please try another email.";
+		case "notloggedin":
+			$msg = "You must be logged in to use this service. Please login or create an account on this page.";
+	}
+	echo "<script>alert('$msg');</script>";
+}
+
+if( isset($_GET["error"])){
+	error_msg($_GET["error"]);
+}
+
+
+if ($_SERVER['REQUEST_METHOD'] == "POST")
 {
 	require("load_user_db.php");
    $user = trim($_POST['signinuser']);
@@ -33,6 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && strlen($_POST['signinuser']) > 0)
 	$statement->closeCursor();
 	
 	if (strlen($result['username']) > 0 && strlen($result['password']) > 0){
+		echo "wtf mate";
 		// set session attributes
          $_SESSION['user'] = $user;
          
@@ -47,6 +67,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && strlen($_POST['signinuser']) > 0)
          
          // redirect the browser to another page using the header() function to specify the target URL
          header('Location: home.php');
+	}else{
+		echo "yo";
+		header('Location: signin.php?error=credentials');
 	}
 	
 }

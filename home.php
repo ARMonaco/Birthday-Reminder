@@ -7,7 +7,7 @@ CS 4640
 
 if (!isset($_SESSION['user']))
 {
-	header('Location: signin.php');
+	header('Location: signin.php?error=notloggedin');
 }
 ?>
 
