@@ -9,6 +9,39 @@ if (!isset($_SESSION['user']))
 {
 	header('Location: signin.php?error=notloggedin');
 }
+
+	require("load_user_db.php");
+	$user=$_SESSION['user'];
+    $query = "SELECT * FROM $user ORDER BY 'Birthday' ASC";
+    //$query = "SELECT * FROM loganhylton99 WHERE Name='$contact'";
+    $statement = $db->prepare($query);
+    $statement->execute();
+    $results = $statement->fetchAll();
+    $statement->closeCursor();
+
+function printResults($results){
+	$today= date("Y/m/d");
+	$daytoday=intval(substr(str_replace("/", "", $today), 6));
+	$monthtoday=intval(substr(str_replace("/", "", $today), 4, 2));
+	foreach($results as $row){
+        //echo $row['Name'] . ":" . $row['Birthday'] . "<br/>";
+		$daybday=intval(substr(str_replace("-", "", $row['Birthday']), 6));
+		$monthbday=intval(substr(str_replace("-", "", $row['Birthday']), 4, 2));
+		// echo $daybday."<br>";
+		// echo $monthbday."<br>";
+		// echo $daytoday."<br>";
+		// echo $monthtoday."<br>";
+		$monthdiff=$monthtoday-$monthbday;
+		$daydiff=$daytoday-$daybday;
+		if(($daydiff<=0 && $daydiff>=-7) && $monthdiff=0){
+			echo $row['Name'] . ": " . $row['Birthday']."<br>";
+		} else if($monthdiff=-1 && ($daytoday-$daydiff)<=7){
+			echo $row['Name'] . ": " . $row['Birthday']."<br>";
+		}
+    }
+}
+
+
 ?>
 
 <html lang="en">
@@ -17,19 +50,19 @@ if (!isset($_SESSION['user']))
 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>Birthday Reminder Profile</title>    
+	<title>Birthday Reminder Profile</title>
 
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" /> 
-	<link rel="stylesheet" href="main.css" /> 
-	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="main.css" />
+
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<!-- loads html files for navbar and calendar -->
-	<script> 
+	<script>
 	$(function(){
-		$("#header").load("navbar_header.html"); 
-		$("#cal_temp").load("calendar.html"); 
+		$("#header").load("navbar_header.html");
+		$("#cal_temp").load("calendar.html");
 		});
-	</script> 
+	</script>
 	<link rel="stylesheet" href="calendar.css" />
 </head>
 
@@ -44,7 +77,7 @@ if (!isset($_SESSION['user']))
 			<h3>Upcoming Birthdays</h3>
 		</div>
 	</div>
-	
+
 <div class="container">
 <br>
 	<div class="row">
@@ -53,13 +86,13 @@ if (!isset($_SESSION['user']))
 			<div class= "text-center">Calendar View (This Month)</div>
 			<div id="cal_temp"></div>
 		</div>
-		
+
 		<div class="col">
-		
+
 		<!-- list view section; will have multiple pages when back-end is implemented. -->
-			<div class= "text-center">List View</div>
+			<div class= "text-center">Birthdays in the next week</div>
 				<ul class="list-group">
-				  <li class="list-group-item">John Doe - July 23</li>
+				  <li class="list-group-item"><?php printResults($results);?></li>
 				  <li class="list-group-item">Jane Doe - July 28</li>
 				  <li class="list-group-item">Marissa Doe - July 31</li>
 				  <li class="list-group-item">Wes Doe - August 3</li>
