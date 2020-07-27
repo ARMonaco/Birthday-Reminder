@@ -20,23 +20,21 @@ if (!isset($_SESSION['user']))
     $statement->closeCursor();
 
 function printResults($results){
-	$today= date("Y/m/d");
-	$daytoday=intval(substr(str_replace("/", "", $today), 6));
-	$monthtoday=intval(substr(str_replace("/", "", $today), 4, 2));
+	$today1= date("m/d");
+	$today = new DateTime($today1);
 	foreach($results as $row){
         //echo $row['Name'] . ":" . $row['Birthday'] . "<br/>";
-		$daybday=intval(substr(str_replace("-", "", $row['Birthday']), 6));
-		$monthbday=intval(substr(str_replace("-", "", $row['Birthday']), 4, 2));
-		// echo $daybday."<br>";
-		// echo $monthbday."<br>";
-		// echo $daytoday."<br>";
-		// echo $monthtoday."<br>";
-		$monthdiff=$monthtoday-$monthbday;
-		$daydiff=$daytoday-$daybday;
-		if(($daydiff<=0 && $daydiff>=-7) && $monthdiff=0){
-			echo $row['Name'] . ": " . $row['Birthday']."<br>";
-		} else if($monthdiff=-1 && ($daytoday-$daydiff)<=7){
-			echo $row['Name'] . ": " . $row['Birthday']."<br>";
+		$daymonthbday=substr(str_replace("-", "/", $row['Birthday']), 5);
+		$timestamp = date($daymonthbday);
+	    $bday = new DateTime($timestamp);
+		//help from https://www.php.net/manual/en/datetime.diff.php
+		$interval=$today->diff($bday);
+		$diffint=intval($interval->format('%R%a'));
+		//echo $row['Name'] . ": " . $row['Birthday'] . ": ".$diffint. "<br/>";
+		if($diffint<=6 && $diffint>=-1){
+			// echo $today1."<br>";
+			// echo $timestamp."<br>";
+			echo $row['Name'] . ":" . $row['Birthday'] . "<br/>";
 		}
     }
 }
@@ -114,7 +112,7 @@ function printResults($results){
 		</div>
 		<script>
 			var adr_button = document.getElementById("address_button");
-			adr_button.onclick = () => window.location.href= "newdate.html";
+			adr_button.onclick = () => window.location.href= "newdate.php";
 		</script>
 	</div>
 </div>
