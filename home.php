@@ -19,7 +19,6 @@ if (!isset($_SESSION['user']))
     $results = $statement->fetchAll();
     $statement->closeCursor();
 
-	$resultsarray=array();
 function printResults($results){
 	$today1= date("m/d");
 	$today = new DateTime($today1);
@@ -33,13 +32,13 @@ function printResults($results){
 		$diffint=intval($interval->format('%R%a'));
 		//echo $row['Name'] . ": " . $row['Birthday'] . ": ".$diffint. "<br/>";
 		if($diffint<=6 && $diffint>=-1){
-			// echo $today1."<br>";
-			// echo $timestamp."<br>";
-			$resultsarray[$row['Name']]=$row['Birthday'];
-			//echo $row['Name'] . ":" . $row['Birthday'] . "<br/>";
+			$timestamp = strtotime($row['Birthday']);
+		    $formatted_date = date("m-d-Y", $timestamp);
+			echo "<li class=\"list-group-item\">".$row['Name'].": ".$formatted_date."</li>";
 		}
     }
 }
+$tester="hi";
 ?>
 
 <!DOCTYPE html>
@@ -91,11 +90,11 @@ function printResults($results){
 		<!-- list view section; will have multiple pages when back-end is implemented. -->
 			<div class= "text-center">Birthdays in the next week</div>
 				<ul class="list-group">
-				  <li class="list-group-item">Jane Doe - July 28</li>
-				  <li class="list-group-item">Jane Doe - July 28</li>
+				  <?php printResults($results); ?>
+				  <!-- <li class="list-group-item">Jane Doe - July 28</li>
 				  <li class="list-group-item">Marissa Doe - July 31</li>
 				  <li class="list-group-item">Wes Doe - August 3</li>
-				  <li class="list-group-item">Taylor Doe - August 4</li>
+				  <li class="list-group-item">Taylor Doe - August 4</li> -->
 				</ul>
 				<div class="d-flex justify-content-center">
 				<ul class="pagination">
@@ -114,8 +113,7 @@ function printResults($results){
 		<script type="text/javascript">
 			var adr_button = document.getElementById("address_button");
 			adr_button.onclick = () => window.location.href= "newdate.php";
-			var results="<?php echo $resultsarray ?>";
-			console.log(results["Shreyas"]);
+			//var results="<?php echo json_encode(printResults($results)); ?>";
 		</script>
 	</div>
 </div>
