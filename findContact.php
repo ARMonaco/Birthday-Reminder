@@ -108,51 +108,5 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && strlen($_POST['contactname']) > 0)
                 <br><br>
            </div>
         </form>
-
-        <!-- Once name is found we can edit the birthday -->
-         <!-- <div class="container" id="namefound">
-             <div class="row justify-content-md-center">
-                 <div class="col col-lg-4">
-                     <div class= "text-left" id="currentdate"><p ></p></div>
-                 </div>
-                 <div class="col col-lg-2">
-                     <div class= "text-left" id="currBday"><p ></p></div>
-                 </div>
-                 <div class="col col-lg-2">
-                 </div>
-             </div>
-             <br><br>
-             <form action="modContacts.php" method="post">
-                 <div class="row justify-content-md-center">
-                     <div class="col col-lg-2">
-                         <div class= "text-left"><p>New Date:</p></div>
-                     </div>
-                     <div class="col col-lg-4">
-                         <input name="newBday" type="date" class="form-control" id="newdate" placeholder="MMDDYYY" onkeydown="return inputlength(event)" onkeypress="dateHandler()">
-                     </div>
-                     <div class="col col-lg-3">
-                         <button name="changeBday" type="submit" id="change_date" class="btn btn-block btn-primary btn-lg" onClick="makeChangeVisible()">Update Current Date</button>
-                     </div>
-                 </div>
-                 <p class="text-md-center text-danger" id="invaliddaterror1"></p>
-                 <br><br>
-                 <button type="button" id="done" class="btn btn-block btn-primary btn-lg">Done</button>
-             </form>
-        </div>
-    </body>
-</html>
-<script>
-    document.getElementById("namefound").style.display="none";
-    document.getElementById("contactnamecheck").focus();
-    function makeChangeVisible(){
-        setTimeout(() => {
-            var error=document.getElementById('nocontactfounderror');
-            if(error==""){
-                document.getElementById("namefound").style.display="";
-                document.getElementById("searchName").style.display="";
-            }
-    } ,1000)
-    }
-</script> -->
     </body>
 </html>

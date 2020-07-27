@@ -70,14 +70,6 @@ CS 4640
             }
         }
     }
-    // else if($_SERVER['REQUEST_METHOD'] == "POST" && (strlen($_POST['bday'])== 0 || strlen($_POST['name']== 0)){
-    //     //if(strlen($_POST['bday'])==0){
-    //         $dateInputError="Please enter a birthday date for new contact"
-    //     //}
-    //     //if(strlen($_POST['name'])==0){
-    //         $nameerror="Please enter a name for new contact";
-    //     //}
-    // }
 
 ?>
 
@@ -205,6 +197,9 @@ CS 4640
   <script>
 
         if(document.getElementById("successmessage").innerHTML!=""){
+            document.getElementById("newcontactname").disabled=true;
+            document.getElementById("contactbday").disabled=true;
+            document.getElementById("back").disabled=true;
             setTimeout(() => {document.location='home.php';} ,5000)
         }
 
@@ -231,13 +226,6 @@ CS 4640
             }
         }
 
-        // //Button listener for executing create new birthday
-        //    //Validates date length and name
-        // document.getElementById("createBtn").addEventListener('click', function() {
-        //
-        //    // document.location='home.html';
-        // });
-        //Done button at end of modify screen to return to home page
         document.getElementById("back").addEventListener('click', function() {
             document.location='newdate.php';
         });

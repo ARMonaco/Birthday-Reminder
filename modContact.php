@@ -1,16 +1,5 @@
 <?php
 
-// if ($_SERVER['REQUEST_METHOD'] == "POST" && strlen($_POST['username']) > 0)
-// {
-//     //require("load_user_db.php");
-//     $user = trim($_POST['signinuser']);
-//
-//     $query = "SELECT * FROM user_info WHERE username='$user'";
-//     $statement = $db->prepare($query);
-//     $statement->execute();
-//     $result = $statement->fetch();
-// }
-
 $nameresult="";
 if ($_SERVER['REQUEST_METHOD'] == "POST" && strlen($_POST['contactname']) > 0)
 {
