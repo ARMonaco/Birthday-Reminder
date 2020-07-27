@@ -19,6 +19,7 @@ if (!isset($_SESSION['user']))
     $results = $statement->fetchAll();
     $statement->closeCursor();
 
+	$resultsarray=array();
 function printResults($results){
 	$today1= date("m/d");
 	$today = new DateTime($today1);
@@ -34,14 +35,14 @@ function printResults($results){
 		if($diffint<=6 && $diffint>=-1){
 			// echo $today1."<br>";
 			// echo $timestamp."<br>";
-			echo $row['Name'] . ":" . $row['Birthday'] . "<br/>";
+			$resultsarray[$row['Name']]=$row['Birthday'];
+			//echo $row['Name'] . ":" . $row['Birthday'] . "<br/>";
 		}
     }
 }
-
-
 ?>
 
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
@@ -90,7 +91,7 @@ function printResults($results){
 		<!-- list view section; will have multiple pages when back-end is implemented. -->
 			<div class= "text-center">Birthdays in the next week</div>
 				<ul class="list-group">
-				  <li class="list-group-item"><?php printResults($results);?></li>
+				  <li class="list-group-item">Jane Doe - July 28</li>
 				  <li class="list-group-item">Jane Doe - July 28</li>
 				  <li class="list-group-item">Marissa Doe - July 31</li>
 				  <li class="list-group-item">Wes Doe - August 3</li>
@@ -110,9 +111,11 @@ function printResults($results){
 		<div class="col col-lg-4">
 			<button type="button" id="address_button" class="btn btn-block btn-primary btn-lg">Create/Edit a Contact</button>
 		</div>
-		<script>
+		<script type="text/javascript">
 			var adr_button = document.getElementById("address_button");
 			adr_button.onclick = () => window.location.href= "newdate.php";
+			var results="<?php echo $resultsarray ?>";
+			console.log(results["Shreyas"]);
 		</script>
 	</div>
 </div>
