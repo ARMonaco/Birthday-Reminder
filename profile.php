@@ -10,6 +10,58 @@ if (!isset($_SESSION['user']))
 	header('Location: signin.php?error=notloggedin');
 }
 
+
+if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "delete")
+{
+	require("load_user_db.php");
+	$user = $_SESSION['user'];
+	$query = "DELETE FROM `user_info` WHERE username='$user'";
+	$statement = $db->prepare($query);
+	$statement->execute();
+	$statement->closeCursor();
+
+	foreach ($_SESSION as $key => $value)
+	{ 	
+		unset($_SESSION[$key]);      
+	}       
+	session_destroy();
+   
+	header('Location: signin.php');
+	
+}else if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "changeuser")
+{
+	require("load_user_db.php");
+	$newuser = trim($_POST['userentry']);
+	$current_user = $_SESSION['user'];
+	$email_user = $_SESSION['email'];
+	
+	$query = "SELECT * FROM user_info WHERE username='$newuser'";
+	$statement = $db->prepare($query);
+	$statement->execute();
+	$result = $statement->fetch();
+	$statement->closeCursor();
+	
+	if (strlen($result['username']) > 0){
+		header('Location: profile.php?error=usertaken');
+		
+	}else if(strlen($newuser) < 5){
+		header('Location: profile.php?error=usershort');
+	}else{
+		$_SESSION['user'] = $newuser;
+		
+		$query2 = "UPDATE user_info SET username=:newuser WHERE email=:email_user";
+	
+		$statement2 = $db->prepare($query2);
+	
+		$statement2->bindValue(':newuser', $newuser);
+		$statement2->bindValue(':email_user', $email_user);
+	
+		$statement2->execute();
+	
+		$statement2->closeCursor();
+		
+	}
+}
 ?>
 
 <html lang="en">
@@ -33,6 +85,8 @@ if (!isset($_SESSION['user']))
 	
 	
 </head>
+
+
 
 <body>
 
@@ -118,23 +172,29 @@ if (!isset($_SESSION['user']))
 	<br>
 	<div class="row justify-content-md-center">
 		<div class="col col-lg-4">
-			<button type="button" id="delete_account" class="btn btn-block btn-danger btn-lg">Delete Account</button>
+		<form id="delete_form" action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
+			<input type="submit" id="delete_account" class="btn btn-block btn-danger btn-lg" value="DELETE ACCOUNT">
+			<input name="action" value="delete" hidden>
 		</div>
+		</form>
 	</div>
 </div>
 
 
 <!-- username change form -->
 <div class="form-popup" id="user_form">
-	<form action="" class="form-container">
+	<div class="form-container">
 		<h1>Change Username</h1>
 
 		<label for="new_user"><b>New Username:</b></label>
-		<input type="text" placeholder="Enter Username" id="user_entry" name="user_entry" required>
-
-		<button type="button" id="change_user_confirm" class="btn btn-block btn-primary btn-lg">Change Username</button>
+		<form action="<?php $_SERVER['PHP_SELF'] ?>" id="change_user_form" method="post">
+			<input type="text" class="form-control" name="userentry" id="userentry">
+			<input type="submit" id="change_user_confirm" class="btn btn-block btn-primary btn-lg" value="Change Username">
+			<input name="action" value="changeuser" hidden>
+		</form>
 		<button type="button" id="user_form_close_btn" class="btn btn-block btn-danger btn-lg">Close</button>
-  </form>
+	</div>
+
 </div>
 
 
@@ -329,7 +389,7 @@ if (!isset($_SESSION['user']))
 	var del_button = document.getElementById("delete_account");
 	
 	<!-- delete button, which "deletes" all current items -->
-	del_button.onclick = function(){
+	/* del_button.onclick = function(){
 		var prompt = confirm("Are you sure you want to delete your account?");
 		if(prompt == true){
 			document.getElementById("user_label").style.color = "red";
@@ -355,9 +415,11 @@ if (!isset($_SESSION['user']))
 			document.getElementById("phone_text").innerHTML = "DELETED!";
 			$(phone_button).prop('disabled', true);
 			phone_button.style.background = "gray";
+		}else{
+			location.reload();
 		}
 
-	}
+	} */
 			
 </script>
 </body>

@@ -7,7 +7,8 @@ if (!isset($_SESSION['user']))
 }
 
 if (count($_SESSION) > 0)     // Check if there are session variables
-{   
+{  
+	
    foreach ($_SESSION as $key => $value)
    { 	
       unset($_SESSION[$key]);      

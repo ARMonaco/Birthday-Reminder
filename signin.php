@@ -17,12 +17,16 @@ function error_msg($error)
 	switch($error){
 		case "credentials":
 			$msg = "Invalid username/password combination. Please try again.";
+			break;
 		case "usertaken":
-			$msg = "Username already taken. Please try another email.";
+			$msg = "Username already taken. Please try another username.";
+			break;
 		case "emailtaken":
 			$msg = "Email already taken. Please try another email.";
+			break;
 		case "notloggedin":
 			$msg = "You must be logged in to use this service. Please login or create an account on this page.";
+			break;
 	}
 	echo "<script>alert('$msg');</script>";
 }
@@ -32,7 +36,7 @@ if( isset($_GET["error"])){
 }
 
 
-if ($_SERVER['REQUEST_METHOD'] == "POST")
+if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "signin")
 {
 	require("load_user_db.php");
    $user = trim($_POST['signinuser']);
@@ -52,7 +56,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
 	$statement->closeCursor();
 	
 	if (strlen($result['username']) > 0 && strlen($result['password']) > 0){
-		echo "wtf mate";
 		// set session attributes
          $_SESSION['user'] = $user;
          
@@ -68,10 +71,59 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
          // redirect the browser to another page using the header() function to specify the target URL
          header('Location: home.php');
 	}else{
-		echo "yo";
 		header('Location: signin.php?error=credentials');
 	}
 	
+}else if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "create"){
+	require("load_user_db.php");
+	
+	$user = trim($_POST['createuser']);
+	$pass = trim($_POST['createpass']);
+	$email = trim($_POST['email']);
+	$phone = trim($_POST['createphone']);
+	
+	$query = "SELECT * FROM user_info WHERE username='$user'";
+	$statement = $db->prepare($query);
+	$statement->execute();
+	$result = $statement->fetch();
+	
+	$statement->closeCursor();
+	if (strlen($result['username']) > 0){
+		header('Location: signin.php?error=usertaken');
+		
+	}else{//checks if email is duplicate
+		$query2 = "SELECT * FROM user_info WHERE email='$email'";
+		$statement2 = $db->prepare($query2);
+		$statement2->execute();
+		$result2 = $statement2->fetch();
+		
+		$statement2->closeCursor();
+		$result2 = $statement2->fetch();
+		
+		echo $result2;
+		
+		if (strlen($result['email']) > 0){
+			header('Location: signin.php?error=emailtaken');
+		}
+	}
+	$query3 = "INSERT INTO `user_info`(`username`, `password`, `email`, `phone`) VALUES ('$user','$pass','$email','$phone')";
+	$statement3 = $db->prepare($query3);
+	$statement3->execute();
+	$statement3->closeCursor();
+	
+	$_SESSION['user'] = $user;
+         
+	 // $hash_pwd = md5($pwd);
+	 // $hash_pwd = password_hash($pwd, PASSWORD_DEFAULT);
+	 // $hash_pwd = password_hash($pwd, PASSWORD_BCRYPT);
+	 
+	 $_SESSION['pwd'] = $pass;
+	 
+	 $_SESSION['email'] = $email;
+	 $_SESSION['phone'] = $phone;
+	 
+	 // redirect the browser to another page using the header() function to specify the target URL
+	 header('Location: home.php');
 }
 
 ?>
@@ -148,6 +200,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
 				   <input type="text" class="form-control" name="signinpass" id="signinpass" oninput="signInBtnDis()">
 			   </div>
 			   <input class="btn btn-block btn-outline-success" disabled=true id="signinbtn" type="submit" value="Sign in">
+			   <input name="action" value="signin" hidden>
 			</form>
            <br>
            <!--<button type="button" class="btn btn-block btn-outline-success" id="signinbtn" disabled=true onclick="validateUser()">Sign In</button>-->
@@ -161,36 +214,40 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
            <!-- New account creation -->
            <h4 class="display-4">Create New Account</h4>
            <br>
-           <div class="input-group input-group-lg">
-               <div class="input-group-prepend">
-                   <span class="input-group-text">Username</span>
-               </div>
-               <input type="text" class="form-control" id="createuser" oninput="createBtnDis()">
-           </div>
-           <br>
-           <div class="input-group input-group-lg">
-               <div class="input-group-prepend">
-                   <span class="input-group-text" >Email</span>
-               </div>
-               <input type="email" class="form-control" id="email" oninput="createBtnDis()">
-           </div>
-           <br>
-           <div class="input-group input-group-lg">
-               <div class="input-group-prepend">
-                   <span class="input-group-text">Password</span>
-               </div>
-               <input type="password" class="form-control" id="createpass" oninput="createBtnDis()">
-           </div>
-           <p class="font-italic" id="passrules">Must be at least 8 chars long</p>
-           <p class="text-danger" id="errorcreate"> </p>
-           <div class="input-group input-group-lg">
-               <div class="input-group-prepend">
-                   <span class="input-group-text">Tel</span>
-               </div>
-               <input type="tel" class="form-control" id="createpass" placeholder="(optional)">
-           </div>
-           <br>
-           <button type="button" class="btn btn-block btn-outline-primary" onclick="passValid()" id="createBtn" disabled=true>Create Account</button>
+		   <form id="createaccount" action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
+			   <div class="input-group input-group-lg">
+				   <div class="input-group-prepend">
+					   <span class="input-group-text">Username</span>
+				   </div>
+				   <input type="text" class="form-control" name="createuser" id="createuser" oninput="createBtnDis()">
+			   </div>
+			   <br>
+			   <div class="input-group input-group-lg">
+				   <div class="input-group-prepend">
+					   <span class="input-group-text" >Email</span>
+				   </div>
+				   <input type="email" class="form-control" name="email" id="email" oninput="createBtnDis()">
+			   </div>
+			   <br>
+			   <div class="input-group input-group-lg">
+				   <div class="input-group-prepend">
+					   <span class="input-group-text">Password</span>
+				   </div>
+				   <input type="password" class="form-control" name="createpass" id="createpass" oninput="createBtnDis()">
+			   </div>
+			   <p class="font-italic" id="passrules">Must be at least 8 chars long</p>
+			   <p class="text-danger" id="errorcreate"> </p>
+			   <div class="input-group input-group-lg">
+				   <div class="input-group-prepend">
+					   <span class="input-group-text">Tel</span>
+				   </div>
+				   <input type="tel" class="form-control" name="createphone" id="createphone" placeholder="(optional)">
+			   </div>
+			   <br>
+			   <!--<button type="button" class="btn btn-block btn-outline-primary" onclick="passValid()" id="createBtn" disabled=true>Create Account</button>-->
+			   <input class="btn btn-block btn-outline-primary" id="createbtn" type="submit" value="Create account">
+			   <input name="action" value="create" hidden>
+		   </form>
 	
 
 	
