@@ -19,7 +19,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "delete")
 	$statement = $db->prepare($query);
 	$statement->execute();
 	$statement->closeCursor();
-
+	
+	$query2 = "DROP TABLE $user";
+	$statement2 = $db->prepare($query2);
+	$statement2->execute();
+	$statement2->closeCursor();
+	
 	foreach ($_SESSION as $key => $value)
 	{ 	
 		unset($_SESSION[$key]);      
@@ -47,6 +52,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "delete")
 	}else if(strlen($newuser) < 5){
 		header('Location: profile.php?error=usershort');
 	}else{
+		$query = "ALTER TABLE $current_user RENAME TO $newuser";
+		$statement = $db->prepare($query);
+		$statement->execute();
+		$statement->closeCursor();
+		
 		$_SESSION['user'] = $newuser;
 		
 		$query2 = "UPDATE user_info SET username=:newuser WHERE email=:email_user";

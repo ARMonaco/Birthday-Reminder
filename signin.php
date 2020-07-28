@@ -130,6 +130,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "signin")
 	 $_SESSION['email'] = $email;
 	 $_SESSION['phone'] = $phone;
 	 
+	 
+	$query4 = "CREATE TABLE $user (Name varchar(11), Birthday date NOT NULL, Email tinyint(1) NOT NULL DEFAULT 0, SMS tinyint(1) NOT NULL DEFAULT 0, Desk tinyint(1) NOT NULL DEFAULT 0)";
+	$statement4 = $db->prepare($query4);
+	$statement4->execute();
+	$statement4->closeCursor();
 	 // redirect the browser to another page using the header() function to specify the target URL
 	 header('Location: home.php');
 }
