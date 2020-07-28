@@ -18,26 +18,26 @@ if (!isset($_SESSION['user']))
 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>Birthday Reminder Logout</title>    
-  
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" /> 
+	<title>Birthday Reminder Logout</title>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-	
+
 	<style>
 		.error{color: red; font-style: italic; padding: 10px;}
 		.nav-link {
 			color: white;
 		}
 	</style>
-	
-	<script> 
+
+	<script>
 	<!-- Imports the navbar header used on every signed-in page. -->
 	$(function(){
-		$("#header").load("navbar_header.html"); 
+		$("#header").load("navbar_header.html");
 		});
 	</script>
-	
+
 </head>
 <body>
 	<div id="header"></div>
@@ -45,7 +45,7 @@ if (!isset($_SESSION['user']))
 		<div class = "pt-5"><div class="pb-3">
 			<h2 class = "text-center">Are you sure you want to log out?<h2>
 		</div></div>
-		
+
 		<div class="text-center">
 		<!-- Buttons for log-out and return -->
 		<form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
@@ -56,21 +56,21 @@ if (!isset($_SESSION['user']))
 			<p hidden id="logout_msg">Logging you out in 5 seconds...</p>
 		</form>
 		</div>
-		
-	
+
+
 		<script>
 			<!-- fetches button information from document.  -->
 			var logout_btn = document.getElementById("logout");
 			var return_btn = document.getElementById("return");
-			
+
 			var logout_time = 5000;
-			
-			
+
+
 			<!-- returns user to profile page -->
 			return_btn.onclick = function(){
-				window.location = "profile.html";
+				window.location = "profile.php";
 			}
-			
+
 			<!-- logs the user out after five seconds. -->
 			<!-- disables buttons so the useer cannot cause a loop. -->
 			logout_btn.onclick = function(){
@@ -83,7 +83,7 @@ if (!isset($_SESSION['user']))
 				},logout_time);
 			}
 		</script>
-			
+
 	</div>
 </body>
 </html>
