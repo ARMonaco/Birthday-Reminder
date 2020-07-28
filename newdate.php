@@ -75,18 +75,29 @@ CS 4640
         	</div>
         </div>
         <br><br>
+        <div class="row justify-content-md-center">
+            <div class="col col-lg-4">
+                <button type="button" id="change_user" class="btn btn-block btn-danger btn-lg" onclick="delete1()">Delete Contact</button>
+            </div>
+        </div>
+        <br><br>
    </div>
 
       <script>
 
-          //"Modify existing option" listener. Makes name search form visible
+          //"Modify existing option" listener. Goes to name search form
           function changeExisting(){
                   document.location='findContact.php';
           }
 
-          //"Create new contact" option listener. Makes new contact input visible
+          //"Create new contact" option listener. Goes to new contact form
           function createNewOption(){
               document.location='createContact.php';
+          }
+
+          //"Delete contact" option listener. Goes to delete name search form
+          function delete1(){
+              document.location='deletionFinder.php';
           }
 
      </script>

@@ -13,36 +13,33 @@ if (!isset($_SESSION['user']))
 	require("load_user_db.php");
 	$user=$_SESSION['user'];
     $query = "SELECT * FROM $user ORDER BY 'Birthday' ASC";
-    //$query = "SELECT * FROM loganhylton99 WHERE Name='$contact'";
     $statement = $db->prepare($query);
     $statement->execute();
     $results = $statement->fetchAll();
     $statement->closeCursor();
-
-	$finalresultarray=array();
 function printResults($results){
+	$finalresultarray=array();
 	$today1= date("m/d");
 	$today = new DateTime($today1);
 	foreach($results as $row){
-        //echo $row['Name'] . ":" . $row['Birthday'] . "<br/>";
 		$daymonthbday=substr(str_replace("-", "/", $row['Birthday']), 5);
 		$timestamp = date($daymonthbday);
 	    $bday = new DateTime($timestamp);
 		//help from https://www.php.net/manual/en/datetime.diff.php
 		$interval=$today->diff($bday);
 		$diffint=intval($interval->format('%R%a'));
-		//echo $row['Name'] . ": " . $row['Birthday'] . ": ".$diffint. "<br/>";
 		if($diffint<=6 && $diffint>=-1){
 			$timestamp = strtotime($row['Birthday']);
 		    $formatted_date = date("m-d-Y", $timestamp);
 			$finalresultarray[$row['Name']]=$formatted_date;
-			//echo "<li class=\"list-group-item\">".$row['Name'].": ".$formatted_date."</li>";
 		}
     }
-	asort($finalresultarray);
-	$keys=array_keys($finalresultarray);
-	foreach ($keys as $name) {
-		echo "<li class=\"list-group-item\">".$name.": ".$finalresultarray[$name]."</li>";
+	if($finalresultarray!=null){
+		asort($finalresultarray);
+		$keys=array_keys($finalresultarray);
+		foreach ($keys as $name) {
+			echo "<li class=\"list-group-item\">".$name.": ".$finalresultarray[$name]."</li>";
+		}
 	}
 }
 $tester="hi";
@@ -116,7 +113,6 @@ $tester="hi";
 		<script type="text/javascript">
 			var adr_button = document.getElementById("address_button");
 			adr_button.onclick = () => window.location.href= "newdate.php";
-			//var results="<?php echo json_encode(printResults($results)); ?>";
 		</script>
 	</div>
 </div>
