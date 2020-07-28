@@ -19,6 +19,7 @@ if (!isset($_SESSION['user']))
     $results = $statement->fetchAll();
     $statement->closeCursor();
 
+	$finalresultarray=array();
 function printResults($results){
 	$today1= date("m/d");
 	$today = new DateTime($today1);
@@ -34,9 +35,15 @@ function printResults($results){
 		if($diffint<=6 && $diffint>=-1){
 			$timestamp = strtotime($row['Birthday']);
 		    $formatted_date = date("m-d-Y", $timestamp);
-			echo "<li class=\"list-group-item\">".$row['Name'].": ".$formatted_date."</li>";
+			$finalresultarray[$row['Name']]=$formatted_date;
+			//echo "<li class=\"list-group-item\">".$row['Name'].": ".$formatted_date."</li>";
 		}
     }
+	asort($finalresultarray);
+	$keys=array_keys($finalresultarray);
+	foreach ($keys as $name) {
+		echo "<li class=\"list-group-item\">".$name.": ".$finalresultarray[$name]."</li>";
+	}
 }
 $tester="hi";
 ?>
@@ -91,10 +98,6 @@ $tester="hi";
 			<div class= "text-center">Birthdays in the next week</div>
 				<ul class="list-group">
 				  <?php printResults($results); ?>
-				  <!-- <li class="list-group-item">Jane Doe - July 28</li>
-				  <li class="list-group-item">Marissa Doe - July 31</li>
-				  <li class="list-group-item">Wes Doe - August 3</li>
-				  <li class="list-group-item">Taylor Doe - August 4</li> -->
 				</ul>
 				<div class="d-flex justify-content-center">
 				<ul class="pagination">
