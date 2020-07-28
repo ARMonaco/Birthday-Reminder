@@ -5,13 +5,13 @@ CS 4640
 <?php session_start(); // make sessions available ?>
 <?php
 
-if (!isset($_SESSION['user']))
+if (!isset($_SESSION['user']))//kicks user out if not logged in
 {
 	header('Location: signin.php?error=notloggedin');
 }
 
 
-function error_msg($error)
+function error_msg($error) //prints error message dependant on URL
 {
 	$msg = "";
 	switch($error){
@@ -37,14 +37,14 @@ function error_msg($error)
 	echo "<script>alert('$msg');</script>";
 }
 
-if( isset($_GET["error"])){
+if( isset($_GET["error"])){ //checks for error in URL
 	error_msg($_GET["error"]);
 }
 
 
 
 
-if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "delete")
+if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "delete") //delete account request
 {
 	require("load_user_db.php");
 	$user = $_SESSION['user'];
@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "delete")
    
 	header('Location: signin.php');
 	
-}else if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "changeuser")
+}else if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "changeuser") // change username request
 {
 	require("load_user_db.php");
 	$newuser = trim($_POST['userentry']);
@@ -104,7 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "delete")
 		$statement2->closeCursor();
 		
 	}
-}else if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "changepass")
+}else if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "changepass") // change username request
 {
 	require("load_user_db.php");
 	$newpass = trim($_POST['passentry']);
@@ -128,7 +128,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "delete")
 		$statement2->closeCursor();
 	}
 	
-}else if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "changephone")
+}else if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "changephone") //change phone number request
 {
 	require("load_user_db.php");
 	$newphone = trim($_POST['phoneentry']);
@@ -152,7 +152,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "delete")
 		$statement2->closeCursor();
 	}
 	
-}else if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "changeemail")
+}else if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "changeemail") // change email request
 {
 	require("load_user_db.php");
 	$newemail = trim($_POST['emailentry']);

@@ -7,7 +7,7 @@ CS 4640
 
 if (!isset($_SESSION['user']))
 {
-	header('Location: signin.php?error=notloggedin');
+	header('Location: signin.php?error=notloggedin'); // kicks user out if they are not signed in
 }
 
 ?>

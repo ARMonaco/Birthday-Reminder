@@ -8,18 +8,18 @@ CS4640 -->
 <?php
 
 
-if (isset($_SESSION['user']))
+if (isset($_SESSION['user'])) //prevents user from visiting this page if they are already logged in
 {
 	header('Location: home.php');
 }
 
 
-function reject($entry)
+function reject($entry)//rejection function
 {
    exit();    
 }
 
-function error_msg($error)
+function error_msg($error)//prints error message if there is an issue with logging in
 {
 	$msg = "";
 	switch($error){
@@ -39,22 +39,17 @@ function error_msg($error)
 	echo "<script>alert('$msg');</script>";
 }
 
-if( isset($_GET["error"])){
+if( isset($_GET["error"])){//gets error
 	error_msg($_GET["error"]);
 }
 
 
-if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "signin")
+if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "signin")//signin request
 {
 	require("load_user_db.php");
    $user = trim($_POST['signinuser']);
    $pass = trim($_POST['signinpass']);
 
-   // if (!ctype_alnum($user))   // ctype_alnum() check if the values contain only alphanumeric data
-   // {
-      // reject('User Name');
-   // }
-		
 		
 	$query = "SELECT * FROM user_info WHERE username='$user' AND password='$pass'";
 	$statement = $db->prepare($query);
@@ -63,8 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "signin")
 	
 	$statement->closeCursor();
 	
-	if (strlen($result['username']) > 0 && strlen($result['password']) > 0){
-		// set session attributes
+	if (strlen($result['username']) > 0 && strlen($result['password']) > 0){ //checks if username/password combo is valid
          $_SESSION['user'] = $user;
          
          // $hash_pwd = md5($pwd);
@@ -76,13 +70,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "signin")
 		 $_SESSION['email'] = $result['email'];
 		 $_SESSION['phone'] = $result['phone'];
          
-         // redirect the browser to another page using the header() function to specify the target URL
          header('Location: home.php');
 	}else{
-		header('Location: signin.php?error=credentials');
+		header('Location: signin.php?error=credentials'); //rejects if not an account
 	}
 	
-}else if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "create"){
+}else if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "create"){ //create account request
 	require("load_user_db.php");
 	
 	$user = trim($_POST['createuser']);
@@ -131,7 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "signin")
 	 $_SESSION['phone'] = $phone;
 	 
 	 
-	$query4 = "CREATE TABLE $user (Name varchar(11), Birthday date NOT NULL, Email tinyint(1) NOT NULL DEFAULT 0, SMS tinyint(1) NOT NULL DEFAULT 0, Desk tinyint(1) NOT NULL DEFAULT 0)";
+	$query4 = "CREATE TABLE $user (Name varchar(11), Birthday date NOT NULL, Email tinyint(1) NOT NULL DEFAULT 0, SMS tinyint(1) NOT NULL DEFAULT 0, Desk tinyint(1) NOT NULL DEFAULT 0)"; //creates table for each user for storing birthdays
 	$statement4 = $db->prepare($query4);
 	$statement4->execute();
 	$statement4->closeCursor();
