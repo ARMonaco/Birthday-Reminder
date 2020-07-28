@@ -28,11 +28,12 @@ CS 4640
         if (isset($_POST['desktop'])) {
             $desktop=1;
         }
+        //give error if date length false
         if(strlen($contactbday)!=10){
             $dateInputError="Please enter a valid date in the format MM/DD/YYY";
             $successMsg="";
         }
-        else{
+        else{//if all inputs valid, try to create contact
             $dateInputError="";
             // Formatting date help from https://www.tutorialrepublic.com/
             $timestamp = strtotime($contactbday);
@@ -214,17 +215,6 @@ CS 4640
                 document.getElementById("createBtn").disabled=true;
             }
         }
-
-        // //Stops user from entering invalid date length, or invalid chars in date inputs
-        // function inputlength(event){
-        //     var charCode = event.keyCode;
-        //     date=document.getElementById("contactbday").value;
-        //     if((date.length==10 && charCode!=8) || (charCode<47 && charCode!=8) || charCode>57){
-        //         return false;
-        //     } else{
-        //         return true;
-        //     }
-        // }
 
         document.getElementById("back").addEventListener('click', function() {
             document.location='newdate.php';

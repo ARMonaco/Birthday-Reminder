@@ -8,7 +8,7 @@ CS 4640
 
     $user=$_SESSION['user'];
     $currentcontact=$_SESSION['contactname'];
-
+    //get current birthday
     $query = "SELECT * FROM $user WHERE Name='$currentcontact'";
     $statement = $db->prepare($query);
     $statement->execute();
@@ -16,6 +16,8 @@ CS 4640
     $statement->closeCursor();
 
     $currentDate= $result["Birthday"];
+
+    //format date
     // Formatting date help from https://www.tutorialrepublic.com/
     $timestamp = strtotime($currentDate);
     $formatted_date = date("m-d-Y", $timestamp);
@@ -27,7 +29,7 @@ CS 4640
     if ($_SERVER['REQUEST_METHOD'] == "POST" && strlen($_POST['newBday']) > 0)
     {
         require("load_user_db.php");
-
+        //get inputted birthday
         $newBirthday = trim($_POST['newBday']);
         if(strlen($newBirthday)!=10){
             $successMsg="";

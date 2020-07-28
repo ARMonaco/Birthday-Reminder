@@ -3,6 +3,7 @@ session_start();
 
 $nameresult="";
 $noneFoundError="";
+//find contact with given name and redirect to deletion page if found
 if ($_SERVER['REQUEST_METHOD'] == "POST" && strlen($_POST['contactname']) > 0)
 {
     require("load_user_db.php");
@@ -11,7 +12,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && strlen($_POST['contactname']) > 0)
     $user=$_SESSION['user'];
     $query = "SELECT * FROM $user WHERE Name='$contact'";
 
-    //$query = "SELECT * FROM loganhylton99 WHERE Name='$contact'";
     $statement = $db->prepare($query);
     $statement->execute();
     $result = $statement->fetch();
@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && strlen($_POST['contactname']) > 0)
     	</script>
     </head>
 
-    <!-- Header and first screen with options to create/modify existing -->
+    <!-- Header -->
     <body>
         	<div id="header"></div>
         	<div class = "container">
@@ -89,7 +89,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && strlen($_POST['contactname']) > 0)
         	</div>
         	<br>
 
-        <!-- CHANGING EXISTING BIRTHDAY -->
         <!-- First search contacts for name given as input -->
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
             <div class="container" id="searchName">

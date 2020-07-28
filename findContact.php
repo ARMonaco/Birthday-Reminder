@@ -17,6 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && strlen($_POST['contactname']) > 0)
     $result = $statement->fetch();
     $statement->closeCursor();
 
+    //if name found in db
     if (strlen($result['Name']) > 0){
         $nameresult=$result['Name'];
         $noneFoundError="";
@@ -77,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && strlen($_POST['contactname']) > 0)
     	</script>
     </head>
 
-    <!-- Header and first screen with options to create/modify existing -->
+    <!-- Header -->
     <body>
         	<div id="header"></div>
         	<div class = "container">
@@ -89,8 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && strlen($_POST['contactname']) > 0)
         	</div>
         	<br>
 
-        <!-- CHANGING EXISTING BIRTHDAY -->
-        <!-- First search contacts for name given as input -->
+        <!-- search contacts for name given as input -->
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
             <div class="container" id="searchName">
                 <div class="row justify-content-md-center">

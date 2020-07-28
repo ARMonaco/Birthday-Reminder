@@ -11,7 +11,7 @@ CS 4640
 
     $dateInputError="";
     $successMsg="";
-
+    //delete contact if form submitted
     if ($_SERVER['REQUEST_METHOD'] == "POST")
     {
         $query="DELETE FROM $user WHERE Name=:c_name";
@@ -72,7 +72,7 @@ CS 4640
 	</script>
 </head>
 
-<!-- Header and first screen with options to create/modify existing -->
+<!-- Header  -->
 <body>
 	<div id="header"></div>
 	<div class = "container">
@@ -84,7 +84,7 @@ CS 4640
 	</div>
 	<br>
 
-  <!-- Now that name is found we can edit the birthday -->
+  <!-- Now that name is found we can delete the contact -->
    <div class="container" id="namefound">
        <div class="row justify-content-md-center">
            <div class="col col-lg-4">
@@ -119,6 +119,7 @@ CS 4640
           setTimeout(() => {document.location='home.php';} ,5000)
       }
 
+      //option to return back to name finder
       document.getElementById("back").addEventListener('click', function() {
           document.location='deletionFinder.php';
       });

@@ -9,18 +9,25 @@ if (!isset($_SESSION['user']))
 {
 	header('Location: signin.php?error=notloggedin');
 }
-
 	require("load_user_db.php");
 	$user=$_SESSION['user'];
+
+	//get all contacts in user's table
     $query = "SELECT * FROM $user ORDER BY 'Birthday' ASC";
     $statement = $db->prepare($query);
     $statement->execute();
     $results = $statement->fetchAll();
     $statement->closeCursor();
+
 function printResults($results){
 	$finalresultarray=array();
+
+	//get today's date
 	$today1= date("m/d");
 	$today = new DateTime($today1);
+
+	//go through each contact and if birthday is within a week from now, add to result array.
+	//determine if in week by getting difference between today and birthday
 	foreach($results as $row){
 		$daymonthbday=substr(str_replace("-", "/", $row['Birthday']), 5);
 		$timestamp = date($daymonthbday);
@@ -34,6 +41,7 @@ function printResults($results){
 			$finalresultarray[$row['Name']]=$formatted_date;
 		}
     }
+	//echo resulting bdays as list items (echo'd in html)
 	if($finalresultarray!=null){
 		asort($finalresultarray);
 		$keys=array_keys($finalresultarray);
@@ -42,7 +50,6 @@ function printResults($results){
 		}
 	}
 }
-$tester="hi";
 ?>
 
 <!DOCTYPE html>
