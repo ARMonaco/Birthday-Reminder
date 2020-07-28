@@ -11,6 +11,39 @@ if (!isset($_SESSION['user']))
 }
 
 
+function error_msg($error)
+{
+	$msg = "";
+	switch($error){
+		case "usertaken":
+			$msg = "Username taken. Please try again.";
+			break;
+		case "usershort":
+			$msg = "Username too short. Please try again.";
+			break;
+		case "passshort":
+			$msg = "Password too short. Please try again.";
+			break;
+		case "phoneshort":
+			$msg = "Phone number too short. Please try again.";
+			break;
+		case "emailshort":
+			$msg = "Email too short. Please try again.";
+			break;
+		case "emailtaken":
+			$msg = "Email was taken. Please try again.";
+			break;
+	}
+	echo "<script>alert('$msg');</script>";
+}
+
+if( isset($_GET["error"])){
+	error_msg($_GET["error"]);
+}
+
+
+
+
 if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "delete")
 {
 	require("load_user_db.php");
@@ -123,10 +156,22 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "delete")
 {
 	require("load_user_db.php");
 	$newemail = trim($_POST['emailentry']);
-	$current_phone = $_SESSION['email'];
+	$current_email = $_SESSION['email'];
 	$user = $_SESSION['user'];
 	
-	if(strlen($newemail) < 10){
+	
+	$query = "SELECT * FROM user_info WHERE email='$current_email'";
+	$statement = $db->prepare($query);
+	$statement->execute();
+	$result = $statement->fetch();
+	$statement->closeCursor();
+	
+	if (strlen($result['email']) > 0){
+		header('Location: profile.php?error=emailtaken');
+		
+	}
+	
+	else if(strlen($newemail) < 10){
 		header('Location: profile.php?error=emailshort');
 	}else{
 		$_SESSION['email'] = $newemail;
