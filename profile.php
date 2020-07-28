@@ -61,6 +61,77 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "delete")
 		$statement2->closeCursor();
 		
 	}
+}else if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "changepass")
+{
+	require("load_user_db.php");
+	$newpass = trim($_POST['passentry']);
+	$current_pass = $_SESSION['pwd'];
+	$email_user = $_SESSION['email'];
+	
+	if(strlen($newpass) < 8){
+		header('Location: profile.php?error=passshort');
+	}else{
+		$_SESSION['pwd'] = $newpass;
+		
+		$query2 = "UPDATE user_info SET password=:newpass WHERE email=:email_user";
+	
+		$statement2 = $db->prepare($query2);
+	
+		$statement2->bindValue(':newpass', $newpass);
+		$statement2->bindValue(':email_user', $email_user);
+	
+		$statement2->execute();
+	
+		$statement2->closeCursor();
+	}
+	
+}else if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "changephone")
+{
+	require("load_user_db.php");
+	$newphone = trim($_POST['phoneentry']);
+	$current_phone = $_SESSION['phone'];
+	$email_user = $_SESSION['email'];
+	
+	if(strlen($newphone) < 7){
+		header('Location: profile.php?error=phoneshort');
+	}else{
+		$_SESSION['phone'] = $newphone;
+		
+		$query2 = "UPDATE user_info SET phone=:newphone WHERE email=:email_user";
+	
+		$statement2 = $db->prepare($query2);
+	
+		$statement2->bindValue(':newphone', $newphone);
+		$statement2->bindValue(':email_user', $email_user);
+	
+		$statement2->execute();
+	
+		$statement2->closeCursor();
+	}
+	
+}else if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "changeemail")
+{
+	require("load_user_db.php");
+	$newemail = trim($_POST['emailentry']);
+	$current_phone = $_SESSION['email'];
+	$user = $_SESSION['user'];
+	
+	if(strlen($newemail) < 10){
+		header('Location: profile.php?error=emailshort');
+	}else{
+		$_SESSION['email'] = $newemail;
+		
+		$query2 = "UPDATE user_info SET email=:newemail WHERE username=:user";
+	
+		$statement2 = $db->prepare($query2);
+	
+		$statement2->bindValue(':newemail', $newemail);
+		$statement2->bindValue(':user', $user);
+	
+		$statement2->execute();
+	
+		$statement2->closeCursor();
+	}
 }
 ?>
 
@@ -200,42 +271,48 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "delete")
 
 <!-- password change form -->
 <div class="form-popup" id="pass_form">
-	<form action="" class="form-container">
+	<div class="form-container">
 		<h1>Change Password</h1>
 
 		<label for="new_user"><b>New Password:</b></label>
-		<input type="text" placeholder="Enter Password" id="pass_entry" name="pass_entry" required>
-
-		<button type="button" id="change_pass_confirm" class="btn btn-block btn-primary btn-lg">Change Password</button>
+		<form action="<?php $_SERVER['PHP_SELF'] ?>" id="change_pass_form" method="post">
+			<input type="text" class="form-control" name="passentry" id="passentry">
+			<input type="submit" id="change_pass_confirm" class="btn btn-block btn-primary btn-lg" value="Change Password">
+			<input name="action" value="changepass" hidden>
+		</form>
 		<button type="button" id="pass_form_close_btn" class="btn btn-block btn-danger btn-lg">Close</button>
-	</form>
+	</div>
 </div>
 
 <!-- email change form -->
 <div class="form-popup" id="email_form">
-	<form action="" class="form-container">
+	<div class="form-container">
 		<h1>Change Email</h1>
 
 		<label for="new_user"><b>New Email:</b></label>
-		<input type="text" placeholder="Enter Email" id="email_entry" name="email_entry" required>
-
-		<button type="button" id="change_email_confirm" class="btn btn-block btn-primary btn-lg">Change Email</button>
+		<form action="<?php $_SERVER['PHP_SELF'] ?>" id="change_email_form" method="post">
+			<input type="text" class="form-control" name="emailentry" id="emailentry">
+			<input type="submit" id="change_email_confirm" class="btn btn-block btn-primary btn-lg" value="Change Email">
+			<input name="action" value="changeemail" hidden>
+		</form>
 		<button type="button" id="email_form_close_btn" class="btn btn-block btn-danger btn-lg">Close</button>
-	</form>
+	</div>
 </div>
 
 
 <!-- phone change form -->
 <div class="form-popup" id="phone_form">
-	<form action="" class="form-container">
-		<h1>Change Email</h1>
+	<div class="form-container">
+		<h1>Change Phone</h1>
 
 		<label for="new_user"><b>New Phone #:</b></label>
-		<input type="text" placeholder="Enter Phone" id="phone_entry" name="phone_entry" required>
-
-		<button type="button" id="change_phone_confirm" class="btn btn-block btn-primary btn-lg">Change Phone #</button>
+		<form action="<?php $_SERVER['PHP_SELF'] ?>" id="change_phone_form" method="post">
+			<input type="text" class="form-control" name="phoneentry" id="phoneentry">
+			<input type="submit" id="change_phone_confirm" class="btn btn-block btn-primary btn-lg" value="Change Phone">
+			<input name="action" value="changephone" hidden>
+		</form>
 		<button type="button" id="phone_form_close_btn" class="btn btn-block btn-danger btn-lg">Close</button>
-	</form>
+	
 </div>
 
 

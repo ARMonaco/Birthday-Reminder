@@ -6,6 +6,14 @@ CS4640 -->
 ?>
 
 <?php
+
+
+if (isset($_SESSION['user']))
+{
+	header('Location: home.php');
+}
+
+
 function reject($entry)
 {
    exit();    
