@@ -146,7 +146,8 @@ CS 4640
                    <div class= "text-left"><p>New Date:</p></div>
                </div>
                <div class="col col-lg-4">
-                   <input name="newBday" type="date" class="form-control" id="newdate" placeholder="MM/DD/YYYY" onkeypress="return inputlength(event)">
+                   <!-- <input name="newBday" type="date" class="form-control" id="newdate" placeholder="MM/DD/YYYY" onkeypress="return inputlength(event)"> -->
+                   <input name="newBday" type="date" class="form-control" id="newdate" placeholder="MM/DD/YYYY">
                </div>
                <div class="col col-lg-3">
                    <button name="changeBday" type="submit" id="change_date" class="btn btn-block btn-primary btn-lg">Update Current Date</button>
@@ -163,16 +164,16 @@ CS 4640
 
       <script>
 
-          //Stops user from entering invalid date length, or invalid chars in date inputs
-          function inputlength(event){
-              var charCode = event.keyCode;
-              date=document.getElementById("newdate").value;
-              if((date.length==10 && charCode!=8) || (charCode<47 && charCode!=8) || charCode>57){
-                  return false;
-              }else{
-                  return true;
-              }
-          }
+          // //Stops user from entering invalid date length, or invalid chars in date inputs
+          // function inputlength(event){
+          //     var charCode = event.keyCode;
+          //     date=document.getElementById("newdate").value;
+          //     if((date.length==10 && charCode!=8) || (charCode<47 && charCode!=8) || charCode>57){
+          //         return false;
+          //     }else{
+          //         return true;
+          //     }
+          // }
 
          //Done button at end of modify screen to return to home page
          document.getElementById("done").addEventListener('click', function() {
