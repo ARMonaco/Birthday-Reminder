@@ -82,14 +82,10 @@ $tester="hi";
 
 <div class="container">
 <br>
-	<div class="row">
+	<div class="row justify-content-center">
 	<!-- calendar section -->
-		<div class="col">
-			<div class= "text-center">Calendar View (This Month)</div>
-			<div id="cal_temp"></div>
-		</div>
 
-		<div class="col">
+		<div class="col-4">
 
 		<!-- list view section; will have multiple pages when back-end is implemented. -->
 			<div class= "text-center">Birthdays in the next week</div>
