@@ -16,7 +16,7 @@ if (isset($_SESSION['user'])) //prevents user from visiting this page if they ar
 
 function reject($entry)//rejection function
 {
-   exit();    
+   exit();
 }
 
 function error_msg($error)//prints error message if there is an issue with logging in
@@ -50,59 +50,59 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "signin")//signi
    $user = trim($_POST['signinuser']);
    $pass = trim($_POST['signinpass']);
 
-		
+
 	$query = "SELECT * FROM user_info WHERE username='$user' AND password='$pass'";
 	$statement = $db->prepare($query);
 	$statement->execute();
 	$result = $statement->fetch();
-	
+
 	$statement->closeCursor();
-	
+
 	if (strlen($result['username']) > 0 && strlen($result['password']) > 0){ //checks if username/password combo is valid
          $_SESSION['user'] = $user;
-         
+
          // $hash_pwd = md5($pwd);
 		 // $hash_pwd = password_hash($pwd, PASSWORD_DEFAULT);
 		 // $hash_pwd = password_hash($pwd, PASSWORD_BCRYPT);
-         
+
          $_SESSION['pwd'] = $pass;
-		 
+
 		 $_SESSION['email'] = $result['email'];
 		 $_SESSION['phone'] = $result['phone'];
-         
+
          header('Location: home.php');
 	}else{
 		header('Location: signin.php?error=credentials'); //rejects if not an account
 	}
-	
+
 }else if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "create"){ //create account request
 	require("load_user_db.php");
-	
+
 	$user = trim($_POST['createuser']);
 	$pass = trim($_POST['createpass']);
 	$email = trim($_POST['email']);
 	$phone = trim($_POST['createphone']);
-	
+
 	$query = "SELECT * FROM user_info WHERE username='$user'";
 	$statement = $db->prepare($query);
 	$statement->execute();
 	$result = $statement->fetch();
-	
+
 	$statement->closeCursor();
 	if (strlen($result['username']) > 0){
 		header('Location: signin.php?error=usertaken');
-		
+
 	}else{//checks if email is duplicate
 		$query2 = "SELECT * FROM user_info WHERE email='$email'";
 		$statement2 = $db->prepare($query2);
 		$statement2->execute();
 		$result2 = $statement2->fetch();
-		
+
 		$statement2->closeCursor();
 		$result2 = $statement2->fetch();
-		
+
 		echo $result2;
-		
+
 		if (strlen($result['email']) > 0){
 			header('Location: signin.php?error=emailtaken');
 		}
@@ -111,19 +111,19 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "signin")//signi
 	$statement3 = $db->prepare($query3);
 	$statement3->execute();
 	$statement3->closeCursor();
-	
+
 	$_SESSION['user'] = $user;
-         
+
 	 // $hash_pwd = md5($pwd);
 	 // $hash_pwd = password_hash($pwd, PASSWORD_DEFAULT);
 	 // $hash_pwd = password_hash($pwd, PASSWORD_BCRYPT);
-	 
+
 	 $_SESSION['pwd'] = $pass;
-	 
+
 	 $_SESSION['email'] = $email;
 	 $_SESSION['phone'] = $phone;
-	 
-	 
+
+
 	$query4 = "CREATE TABLE $user (Name varchar(11), Birthday date NOT NULL, Email tinyint(1) NOT NULL DEFAULT 0, SMS tinyint(1) NOT NULL DEFAULT 0, Desk tinyint(1) NOT NULL DEFAULT 0)"; //creates table for each user for storing birthdays
 	$statement4 = $db->prepare($query4);
 	$statement4->execute();
@@ -183,6 +183,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "signin")//signi
                         <hr/>
                         <!-- Help from w3schools.com on how to link to document onClick below -->
                     <button type="button" class="btn btn-info btn-lg" onclick="document.location='aboutus.html'">About Us</button>
+					&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+					<button type="button" class="btn btn-info btn-lg" onclick="location.href='http://localhost:4200/'">Contact Us</button>
         		</div>
             </div>
        </div>
@@ -211,8 +213,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "signin")//signi
            <br>
            <!--<button type="button" class="btn btn-block btn-outline-success" id="signinbtn" disabled=true onclick="validateUser()">Sign In</button>-->
            <br>
-		   
-		   
+
+
            <h4 class="display-6">Or</h4>
            <br>
            <div class="g-signin2" data-onsuccess="onSignIn" data-width="400" data-height="60" data-longtitle="true"></div>
@@ -254,9 +256,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "signin")//signi
 			   <input class="btn btn-block btn-outline-primary" id="createbtn" type="submit" value="Create account">
 			   <input name="action" value="create" hidden>
 		   </form>
-	
 
-	
+
+
     </div>
     <script>
         document.getElementById("signinuser").focus(); //focus on first input on startup
@@ -312,9 +314,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "signin")//signi
             setTimeout(() => { document.location='profile.html'} ,800)
         }
     </script>
-	
 
-	
-	
+
+
+
    </body>
  </html>
