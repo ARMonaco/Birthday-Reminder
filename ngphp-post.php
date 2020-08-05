@@ -1,40 +1,58 @@
 <?php
-// header('Acccess-Control-Allow-Origin: http://localhost:4200');
-header('Access-Control-Allow-Origin: *');
+
+header('Access-Control-Allow-Origin: http://localhost:4200');
+
 header('Access-Control-Allow-Headers: X-Requested-With, Content-Type, Origin, Authorization, Accept, Client-Security-Token, Accept-Encoding');
 header('Access-Control-Max-Age: 1000');
 header('Access-Control-Allow-Methods: POST, GET, OPTIONS, DELETE, PUT');
-$content_length= (int) $_SERVER['CONTENT_LENGTH'];
-$postdata=file_get_contents("php://input");
-$request= json_decode($postdata);
-$data=[];
-$dta[0]['length']=$content_length;
-foreach($request as $k=>$v){
-    $data[0]['post_'.$k]=$v;
-}
-$input=$data[0]['post_'.$k];
-$input=trim(strtolower($input));
-$result = [];
-$warray= explode(" ", $input);
-$repeatstr="";
-$output="";
-foreach($warray as $word){
-   if(in_array($word, array_keys($result))==true){
-       $result[$word]=$result[$word]+1;
-   } else{
-       $result[$word]=0;
-   }
-}
-foreach(array_keys($result) as $word){
-    if($result[$word]!=0){
-        $repeatstr.=$word." repeats ".strval($result[$word])." times, ";
-    }
-}
-if($repeatstr==""){
-   $output="No repeats found";
-} else{
-   $output=$repeatstr;
-}
-echo json_encode([$output]);
 
+
+$content_length = (int) $_SERVER['CONTENT_LENGTH'];
+
+
+$postdata = file_get_contents("php://input");
+$request = json_decode($postdata);
+
+
+
+$hostname = 'localhost:3306';
+$dbname = 'contact';
+$username = 'BirthdayUSER';
+$password = 'BirthdayShreyas!';
+
+$dsn = "mysql:host=$hostname;dbname=$dbname";
+
+try 
+{
+   $db = new PDO($dsn, $username, $password);
+}
+catch (PDOException $e){
+   $error_message = $e->getMessage();        
+   echo "<p>An error occurred while connecting to the database: $error_message </p>";
+}
+catch (Exception $e)  
+{
+   $error_message = $e->getMessage();
+   echo "<p>Error message: $error_message </p>"; 
+}
+
+
+$input_name = $request->name;
+$input_email = $request->email;
+$input_option = $request->option;
+$input_info = $request->String;
+
+$query = "INSERT INTO `contact_forms`(`name`, `email`, `reason`, `request`) VALUES ('$input_name','$input_email', '$input_option', '$input_info')";
+$statement = $db->prepare($query);
+$statement->execute();
+$statement->closeCursor();
+
+$data = [];
+$data[0]['length'] = $content_length;
+foreach ($request as $k => $v)
+{
+	$data[0]['post_'.$k] = $v;
+}
+
+echo json_encode(['Request Submitted: '=>$data]);
 ?>
