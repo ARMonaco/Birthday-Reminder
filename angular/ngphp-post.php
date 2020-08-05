@@ -26,22 +26,23 @@ try
 {
    $db = new PDO($dsn, $username, $password);
 }
-catch (PDOException $e)     
+catch (PDOException $e){
    $error_message = $e->getMessage();        
    echo "<p>An error occurred while connecting to the database: $error_message </p>";
 }
 catch (Exception $e)  
 {
    $error_message = $e->getMessage();
-   echo "<p>Error message: $error_message </p>";
+   echo "<p>Error message: $error_message </p>"; 
+}
 
 
 $input_name = $request->name;
 $input_email = $request->email;
-$input_info = $request->info;
+$input_info = $request->String;
 
 $query = "INSERT INTO `contact_forms`(`name`, `email`, `request`) VALUES ('$input_name','$input_email','$input_info')";
-$statement = $db->prepare($query3);
+$statement = $db->prepare($query);
 $statement->execute();
 $statement->closeCursor();
 
