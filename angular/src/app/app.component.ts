@@ -13,18 +13,18 @@ export class AppComponent {
 
 
   constructor(private orderService: OrderServiceService){ }
-  title = 'Repeat checker';
+  title = 'Contact Form';
 
   confirm_msg = '';
   data_submitted = '';
 
-  orderModel = new Order('');
+  orderModel = new Order('', '', '');
 
   confirmOrder(data) {
      this.confirm_msg = 'Your string is: ' + data.name ;
   }
 
-  responsedata= new Order(null);
+  responsedata= new Order(null, null, null);
 
   onSubmit(form : any):void {
      this.data_submitted = form;
