@@ -31,6 +31,9 @@
         <option *ngFor="let item of option">{{ item }}</option>
       </select>
     </div>
+	<div *ngIf="orderModel.option == 'Support Request'">
+		Please allow up to 24 hours for a support response.
+	</div>
 
     <div class="form-group">
      <label [ngClass]="{'text-success':comment.valid}">Comment: </label>
