@@ -18,7 +18,7 @@ export class AppComponent {
   confirm_msg = '';
   data_submitted = '';
 
-  orderModel = new Order('', '', '');
+  orderModel = new Order('', '',[] , '');
 
   confirmOrder(data) {
      this.confirm_msg = 'Your string is: ' + data.name ;
