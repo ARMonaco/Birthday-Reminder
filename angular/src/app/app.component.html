@@ -29,10 +29,7 @@
     <div class="form-group">
     What is your reason for contacting us today?
       <select class="custom-select" name="option" [(ngModel)]="orderModel.option">
-        <option value="">Support Request</option>
-        <option value="">Suggestions</option>
-        <option value="">Other</option>
-        <option *ngFor="let item of option">{{ m }}</option>
+        <option *ngFor="let item of option">{{ item }}</option>
       </select>
     </div>
 

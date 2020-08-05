@@ -15,6 +15,8 @@ export class AppComponent {
   constructor(private orderService: OrderServiceService){ }
   title = 'Contact Form';
 
+  option=['Support Request', 'Suggestions', 'Other']
+
   confirm_msg = '';
   data_submitted = '';
 
@@ -24,7 +26,7 @@ export class AppComponent {
      this.confirm_msg = 'Your string is: ' + data.name ;
   }
 
-  responsedata= new Order(null, null, null);
+  responsedata= new Order(null, null, null, null);
 
   onSubmit(form : any):void {
      this.data_submitted = form;
