@@ -1,0 +1,31 @@
+<div class="container">
+  <h1>{{ title }}</h1>
+  <form #orderForm="ngForm" (ngSubmit)="onSubmit(orderForm.value)">
+     <div class="form-group">
+      <label>String: </label>
+      <input type="text" required
+           #name="ngModel"
+           [class.is-invalid]="(name.invalid && name.touched)"
+           class="form-control is-invalid" [(ngModel)]="orderModel.name"
+           id="input"
+           name="String" autofocus
+           >
+      <small class="text-danger" [class.d-none]="name.valid || name.untouched">Name is required</small>
+    </div>
+    <button class="btn btn-primary" type="submit"
+          (click)="confirmOrder(orderForm.value)"
+          title="always enabled"
+          id="submit"
+          >Submit String
+      </button>
+  </form>
+Data submitted:
+<font color="blue" style="font-style:italic">
+{{ data_submitted | json }}
+</font>
+<br>
+Response from php:
+<font color="green" style="font-style:italic">
+{{ responsedata | json }}
+</font>
+<hr/>
