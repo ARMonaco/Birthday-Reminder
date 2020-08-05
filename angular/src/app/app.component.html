@@ -26,15 +26,15 @@
 
     </div>
 
-    <!-- <div class="form-group">
+    <div class="form-group">
     What is your reason for contacting us today?
-      <select class="custom-select" name="mood_option" [(ngModel)]="mymood">
+      <select class="custom-select" name="option" [(ngModel)]="orderModel.option">
         <option value="">Support Request</option>
         <option value="">Suggestions</option>
         <option value="">Other</option>
-        <option *ngFor="let m of moods">{{ m }}</option>
+        <option *ngFor="let item of option">{{ m }}</option>
       </select>
-    </div> -->
+    </div>
 
     <div class="form-group">
      <label>Comment: </label>
@@ -50,33 +50,6 @@
      <br>
      <small class="text-danger" [class.d-none]="comment.valid || comment.untouched">Comment is required</small>
    </div>
-    <!-- <div class="form-group">
-      Email:
-      <input [(ngModel)]="person.email"
-             required
-             pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
-             #email="ngModel"
-             [class.is-invalid]="(email.invalid && email.touched)"
-             type="text" name="email" class="form-control" />
-      <small class="text-danger"
-             [class.d-none]="email.valid || email.untouched">
-        Email is required and must be in a proper format</small>
-    </div>
-
-    <div class="form-group">
-    What is your reason for contacting us today?
-      <select class="custom-select" name="mood_option" [(ngModel)]="mymood">
-        <option value="">Support Request</option>
-        <option value="">Suggestions</option>
-        <option value="">Other</option>
-        <option *ngFor="let m of moods">{{ m }}</option>
-      </select>
-
-    </div>
-    <div class="form-group">
-        <textarea  required matInput matTextareaAutosize [(ngModel)]="content" placeholder="comment">
-        </textarea>
-    </div> -->
     <button class="btn btn-primary" type="submit"
           (click)="confirmOrder(orderForm.value)"
           title="always enabled"
