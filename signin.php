@@ -49,6 +49,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "signin")//signi
 	require("load_user_db.php");
    $user = trim($_POST['signinuser']);
    $pass = trim($_POST['signinpass']);
+   
+   $user = strtolower($user);
 
 
 	$query = "SELECT * FROM user_info WHERE username='$user' AND password='$pass'";
@@ -82,6 +84,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "signin")//signi
 	$pass = trim($_POST['createpass']);
 	$email = trim($_POST['email']);
 	$phone = trim($_POST['createphone']);
+	
+	$user = strtolower($user);
 
 	$query = "SELECT * FROM user_info WHERE username='$user'";
 	$statement = $db->prepare($query);

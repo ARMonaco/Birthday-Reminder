@@ -70,6 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "delete") //dele
 {
 	require("load_user_db.php");
 	$newuser = trim($_POST['userentry']);
+	$newuser = strtolower($newuser);
 	$current_user = $_SESSION['user'];
 	$email_user = $_SESSION['email'];
 	
@@ -102,9 +103,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "delete") //dele
 		$statement2->execute();
 	
 		$statement2->closeCursor();
+		header('Location: profile.php');
 		
 	}
-}else if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "changepass") // change username request
+}else if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "changepass") // change pass request
 {
 	require("load_user_db.php");
 	$newpass = trim($_POST['passentry']);
@@ -126,6 +128,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "delete") //dele
 		$statement2->execute();
 	
 		$statement2->closeCursor();
+		header('Location: profile.php');
 	}
 	
 }else if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "changephone") //change phone number request
@@ -150,6 +153,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "delete") //dele
 		$statement2->execute();
 	
 		$statement2->closeCursor();
+		header('Location: profile.php');
 	}
 	
 }else if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "changeemail") // change email request
@@ -186,6 +190,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST["action"] == "delete") //dele
 		$statement2->execute();
 	
 		$statement2->closeCursor();
+		header('Location: profile.php');
 	}
 }
 ?>
